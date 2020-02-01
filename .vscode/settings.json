@@ -1,39 +1,21 @@
 {
-    "autoDocstring.docstringFormat": "google",
-    "editor.rulers": [79, 100, 120],
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "files.insertFinalNewline": true,
     "[python]": {
-        "editor.rulers": [79, 100, 120],
+        "editor.rulers": [
+            79,
+            100,
+            120
+        ],
         "editor.tabSize": 4
     },
-    "python.linting.flake8Enabled": true,
-    "python.linting.mypyEnabled": true,
-    "python.linting.pylintEnabled": true,
-    "python.pythonPath": ".venv/bin/python",
-    "python.formatting.provider": "autopep8",
-    "yaml.customTags": [
-        "!Equals sequence",
-        "!FindInMap sequence",
-        "!GetAtt",
-        "!GetAZs",
-        "!ImportValue",
-        "!Join sequence",
-        "!Ref",
-        "!Select sequence",
-        "!Split sequence",
-        "!Sub",
-        "!Not sequence",
-        "!Select sequence",
-        "!Or sequence",
-        "!And sequence",
-        "!If sequence",
-        "!EachMemberIn sequence",
-        "!ValueOfAll sequence",
-        "!RefAll",
-        "!Condition"
-    ],
+    "[restructuredtext]": {
+        "editor.rulers": [
+            79,
+            100,
+            120
+        ],
+        "editor.tabSize": 4
+    },
+    "autoDocstring.docstringFormat": "google",
     "cSpell.words": [
         "DHCP",
         "ENIs",
@@ -47,12 +29,14 @@
         "applicationlb",
         "asadmin",
         "authn",
+        "autofix",
         "awscli",
         "awslabs",
         "awslambda",
         "awsrun",
         "backref",
         "basepath",
+        "bdist",
         "bitbucket",
         "boto",
         "botocore",
@@ -86,6 +70,7 @@
         "devops",
         "distro",
         "dockerignore",
+        "docstring",
         "docutils",
         "dotnetcore",
         "dynamodb",
@@ -107,6 +92,7 @@
         "isdigit",
         "isfile",
         "islower",
+        "isort",
         "isotime",
         "isupper",
         "jquery",
@@ -169,6 +155,7 @@
         "securitygroups",
         "serializable",
         "serverless",
+        "setuptools",
         "shlex",
         "shutil",
         "signin",
@@ -225,8 +212,45 @@
         "yubikey",
         "zgitignore"
     ],
+    "editor.insertSpaces": true,
+    "editor.rulers": [
+        79,
+        100,
+        120
+    ],
+    "editor.tabSize": 2,
+    "files.insertFinalNewline": true,
+    "python.formatting.provider": "autopep8",
+    "python.linting.flake8Enabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.pylintArgs": [
+        "--rcfile=setup.cfg"
+    ],
+    "python.linting.pylintEnabled": true,
+    "python.pythonPath": ".venv/bin/python",
     "restructuredtext.confPath": "${workspaceFolder}/docs/source",
     "restructuredtext.linter.extraArgs": [
         "--ignore D001"
+    ],
+    "yaml.customTags": [
+        "!Equals sequence",
+        "!FindInMap sequence",
+        "!GetAtt",
+        "!GetAZs",
+        "!ImportValue",
+        "!Join sequence",
+        "!Ref",
+        "!Select sequence",
+        "!Split sequence",
+        "!Sub",
+        "!Not sequence",
+        "!Select sequence",
+        "!Or sequence",
+        "!And sequence",
+        "!If sequence",
+        "!EachMemberIn sequence",
+        "!ValueOfAll sequence",
+        "!RefAll",
+        "!Condition"
     ]
 }

@@ -9,13 +9,15 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: max/secret-scan@master
-  python:
+
+  python-tests:
     name: Python tests
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: true
       max-parallel: 4
       matrix:
-        python-version: [3.6, 3.7]
+        python-version: [3.7, 3.8]
     steps:
       - uses: actions/checkout@v1
       - name: Set up Python ${{ matrix.python-version }}
@@ -26,15 +28,61 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install pipenv
-          pipenv sync --dev
+          make sync
+      - name: Lint with isort
+        run: make lint-isort
       - name: Lint with mypy
-        run: |
-          find ${GITHUB_WORKSPACE}/src -name '*.py' ! -name '*_types.py' -exec pipenv run mypy {} +
+        run: make lint-mypy
       - name: Lint with flake8
-        run: |
-          pipenv run flake8 ${GITHUB_WORKSPACE}/src --count --show-source --statistics
+        run: make lint-flake8
       - name: Lint with pylint
-        run: |
-          find ${GITHUB_WORKSPACE}/src -name '*.py' | xargs pipenv run pylint --rcfile=.pylintrc
+        run: make lint-pylint
       - name: Test with pytest
         run: pipenv run pytest
+
+  build:
+    name: Build package
+    needs:
+      - secret-scan
+      - python-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools wheel
+      - name: Build dist
+        shell: bash
+        run: |
+          make build
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: dist
+          path: dist
+
+  publish-pypi:
+    name: Publish To PyPI
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download dist artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: dist
+      - name: Publish distribution 📦 to Test PyPI
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          password: ${{ secrets.test_pypi_password }}
+          repository_url: https://test.pypi.org/legacy/
+      - name: Publish distribution 📦 to PyPI
+        if: startsWith(github.event.ref, 'refs/tags')
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          password: ${{ secrets.pypi_password }}

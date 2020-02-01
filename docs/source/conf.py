@@ -39,7 +39,7 @@ copyfile('../../CHANGELOG.md', './changelog.md')
 
 # -- Project information -----------------------------------------------------
 
-project = 'generic-template'
+project = 'f-lib'
 copyright = '2019, Kyle Finley'
 author = 'Kyle Finley'
 version = '0.0.0'
