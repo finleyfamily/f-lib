@@ -9,13 +9,14 @@ full list see the documentation: http://www.sphinx-doc.org/en/master/config
 
 """
 import os
-from shutil import copyfile
 import sys
+from shutil import copyfile
 
 # add to path for imports
 sys.path.insert(0, os.getcwd())
 
-from pygment_styles import OneDark, pygments_patch_style  # noqa
+# needs to be after the sys.path.insert
+from pygment_styles import OneDark, pygments_patch_style  # noqa isort:skip
 
 
 pygments_patch_style("one_dark", OneDark)

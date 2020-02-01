@@ -1,7 +1,14 @@
 """Custom pygment style."""
 from pygments.style import Style
-from pygments.token import (Comment, Error, Generic, Keyword, Name, Number,
-                            Operator, String, Text)
+from pygments.token import (Comment,
+                            Error,
+                            Generic,
+                            Keyword,
+                            Name,
+                            Number,
+                            Operator,
+                            String,
+                            Text)
 
 
 class OneDark(Style):  # type: ignore

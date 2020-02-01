@@ -1,7 +1,6 @@
 """Import classes."""
-from typing import Callable
-
 import sys
+from typing import Callable
 
 import pygments.styles
 
