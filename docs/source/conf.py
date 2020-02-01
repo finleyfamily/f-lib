@@ -10,13 +10,19 @@ full list see the documentation: http://www.sphinx-doc.org/en/master/config
 """
 import os
 import sys
+from os.path import dirname, realpath
 from shutil import copyfile
+
+from pkg_resources import get_distribution
 
 # add to path for imports
 sys.path.insert(0, os.getcwd())
 
 # needs to be after the sys.path.insert
 from pygment_styles import OneDark, pygments_patch_style  # noqa isort:skip
+
+ROOT_DIR = dirname(dirname(dirname(realpath(__file__))))
+DOC_SRC = os.path.join(ROOT_DIR, 'docs/source')
 
 
 pygments_patch_style("one_dark", OneDark)
@@ -43,8 +49,8 @@ copyfile('../../CHANGELOG.md', './changelog.md')
 project = 'f-lib'
 copyright = '2019, Kyle Finley'
 author = 'Kyle Finley'
-version = '0.0.0'
-release = '0.0.0'
+release = get_distribution(project).version
+version = release
 
 
 # -- General configuration ---------------------------------------------------
@@ -57,7 +63,8 @@ extensions = [
     'recommonmark',
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
-    'sphinx.ext.viewcode'
+    'sphinx.ext.viewcode',
+    'sphinxcontrib.apidoc'
 ]
 
 # The file extensions of source files. Sphinx considers the files with
@@ -217,3 +224,14 @@ autoclass_content = 'both'
 # -- Options for napoleon  ----------------------------------------------------
 napoleon_google_docstring = True
 napoleon_include_init_with_doc = False
+
+# -- Options for sphinxcontrib.apidoc  ----------------------------------------
+apidoc_excluded_paths = ['cfngin/commands', 'templates']
+apidoc_extra_args = [
+    f"--templatedir={os.path.join(DOC_SRC, '_templates/apidocs')}"
+]
+apidoc_module_dir = os.path.join(ROOT_DIR, 'f_lib')
+apidoc_module_first = True
+apidoc_output_dir = 'apidocs'
+apidoc_separate_modules = True
+apidoc_toc_file = 'index'

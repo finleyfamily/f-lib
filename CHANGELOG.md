@@ -7,3 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- AWS Lambda type definitions
+  - context
+  - SQS events

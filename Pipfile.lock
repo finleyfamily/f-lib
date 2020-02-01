@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "32565cd8d3b30311b0548aed240c6b366069ca80ff9bdccfbe232876389f55bb"
+            "sha256": "6c48f479f7d8a6778fe2c8eb992071c8be8a0c13a24ad121fbe9da912d978e11"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -276,6 +276,13 @@
             ],
             "version": "==20.1"
         },
+        "pbr": {
+            "hashes": [
+                "sha256:139d2625547dbfa5fb0b81daebb39601c478c21956dc57e2e07b74450a8c506b",
+                "sha256:61aa52a0f18b71c5cc58232d2cf8f8d09cd67fcad60b742a60124cb8d6951488"
+            ],
+            "version": "==5.4.4"
+        },
         "pep8-naming": {
             "hashes": [
                 "sha256:45f330db8fcfb0fba57458c77385e288e7a3be1d01e8ea4268263ef677ceea5f",
@@ -411,6 +418,14 @@
             ],
             "index": "pypi",
             "version": "==0.4.3"
+        },
+        "sphinxcontrib-apidoc": {
+            "hashes": [
+                "sha256:6671a46b2c6c5b0dca3d8a147849d159065e50443df79614f921b42fbd15cb09",
+                "sha256:729bf592cf7b7dd57c4c05794f732dc026127275d785c2a5494521fdde773fb9"
+            ],
+            "index": "pypi",
+            "version": "==0.3.0"
         },
         "sphinxcontrib-applehelp": {
             "hashes": [
