@@ -22,7 +22,8 @@ isort = "~=4.3"
 # Tests
 pytest = '~=5.1'
 # Documentation
-Sphinx = "~=2.2"
+Sphinx = "~=2.3"
 sphinx_rtd_theme = "~=0.4.2"
 pygments = "~=2.5"
 recommonmark = "~=0.6"
+sphinxcontrib-apidoc = "==0.3.0"

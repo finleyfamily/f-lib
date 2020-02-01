@@ -1,6 +1,7 @@
 {
     "[python]": {
         "editor.rulers": [
+            72,
             79,
             100,
             120
@@ -17,6 +18,7 @@
     },
     "autoDocstring.docstringFormat": "google",
     "cSpell.words": [
+        "Cognito",
         "DHCP",
         "ENIs",
         "Emph",
@@ -228,10 +230,14 @@
     ],
     "python.linting.pylintEnabled": true,
     "python.pythonPath": ".venv/bin/python",
+    "restructuredtext.builtDocumentationPath": "${workspaceRoot}/docs/build/html",
     "restructuredtext.confPath": "${workspaceFolder}/docs/source",
+    "restructuredtext.updateOnTextChanged": "true",
     "restructuredtext.linter.extraArgs": [
         "--ignore D001"
     ],
+    "restructuredtext.preview.scrollEditorWithPreview": false,
+    "restructuredtext.preview.scrollPreviewWithEditor": false,
     "yaml.customTags": [
         "!Equals sequence",
         "!FindInMap sequence",

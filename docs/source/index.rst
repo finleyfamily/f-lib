@@ -1,13 +1,13 @@
-generic-template
-================
+f-lib
+=====
 
-DESCRIPTION HERE
+A library of useful functions and classes for python projects.
 
 .. toctree::
    :maxdepth: 2
    :caption: Documentation
 
-   example_page
+   apidocs/index
    changelog
 
 

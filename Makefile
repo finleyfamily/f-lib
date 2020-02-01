@@ -1,3 +1,8 @@
+.PHONY: docs
+
+docs:
+	pipenv run sphinx-build docs/source docs/build -j auto
+
 clean:
 	rm -rf build/
 	rm -rf dist/
@@ -8,7 +13,7 @@ clean:
 build: clean
 	@python setup.py sdist bdist_wheel
 
-lint: lint-mypy lint-flake8 lint-pylint
+lint: lint-isort lint-mypy lint-flake8 lint-pylint
 
 lint-flake8:
 	@echo "Running flake8..."
