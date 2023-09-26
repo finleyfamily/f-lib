@@ -1,19 +1,79 @@
-name-template: 'v$NEXT_PATCH_VERSION'
-tag-template: 'v$NEXT_PATCH_VERSION'
+# https://github.com/release-drafter/release-drafter
+autolabeler:  # cspell:ignore autolabeler
+  - label: bug
+    branch: [/^(bug|bugfix|fix|hotfix)\/.*/]
+  - label: changelog:skip
+    branch: [/^(dependabot)\/.*/]
+  - label: dependencies
+    branch: [/^(depend|dependabot|renovate)\/.*/]
+  - label: documentation
+    branch: [/^(docs)\/.*/]
+  - label: feature
+    branch: [/^(enhancement|feat|feature)\/.*/]
+  - label: github_actions
+    files:
+      - .github/workflows/*.yml
+  - label: javascript
+    files:
+      - '**/*.js'
+      - '**/package-lock.json'
+      - '**/package.json'
+  - label: maintenance
+    branch: [/^(chore|maint|maintain|maintenance)\/.*/]
+  - label: changelog:patch
+    branch: [/^(bug|bugfix|fix|hotfix)\/.*/]
+  - label: poetry
+    files:
+      - poetry.lock
+      - poetry.toml
+      - pyproject.toml
+  - label: python
+    files:
+      - '**/*.py'
+      - poetry.lock
+      - pyproject.toml
+  - label: release
+    branch: [/^(release)\/.*/]
 categories:
-  - title: '🚀 Features'
+  - title: 🚀 Features
     labels:
-      - 'feature'
-  - title: '🐛 Bug Fixes'
+      - feature
+      - enhancement
+  - title: 🐛 Bug Fixes
     labels:
-      - 'bug'
-  - title: '🧰 Maintenance'
-    label: 'maintenance'
-exclude-labels:
-  - 'skip-changelog'
-  - 'documentation'
+      - bug
+  - title: 🧶 Dependencies
+    labels:
+      - dependencies
+  - title: 📖 Doc Updates
+    labels:
+      - documentation
+  - title: 🧰 Maintenance
+    label: maintenance
+category-template: >-
+  ### $TITLE
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+commitish: master  # cspell:ignore commitish
+exclude-contributors:
+  - dependabot
+exclude-labels:
+  - changelog:skip
+  - release
+name-template: v$RESOLVED_VERSION
+sort-direction: ascending
+tag-template: v$RESOLVED_VERSION
 template: |
-  ## Changes
+  ## What Changed
 
   $CHANGES
+version-resolver:
+  major:
+    labels:
+      - changelog:major
+  minor:
+    labels:
+      - changelog:minor
+  patch:
+    labels:
+      - changelog:patch
+  default: patch

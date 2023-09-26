@@ -1,33 +1,15 @@
-# -*- coding: utf-8 -*-
-# pylint: skip-file
-# type: ignore
-"""
-Configuration file for the Sphinx documentation builder.
+"""Configuration file for the Sphinx documentation builder.
 
 This file only contain a selection of the most common options. For a
 full list see the documentation: http://www.sphinx-doc.org/en/master/config
 
 """
-import os
-import sys
-from os.path import dirname, realpath
-from shutil import copyfile
+from pathlib import Path
 
 from pkg_resources import get_distribution
 
-# add to path for imports
-sys.path.insert(0, os.getcwd())
-
-# needs to be after the sys.path.insert
-from pygment_styles import OneDark, pygments_patch_style  # noqa isort:skip
-
-ROOT_DIR = dirname(dirname(dirname(realpath(__file__))))
-DOC_SRC = os.path.join(ROOT_DIR, 'docs/source')
-
-
-pygments_patch_style("one_dark", OneDark)
-
-copyfile('../../CHANGELOG.md', './changelog.md')
+ROOT_DIR = Path(__file__).parent.parent.parent
+DOC_SRC = ROOT_DIR / "docs" / "source"
 
 # -- Path setup --------------------------------------------------------------
 
@@ -41,14 +23,14 @@ copyfile('../../CHANGELOG.md', './changelog.md')
 # root_dir = dirname(dirname(dirname(realpath(__file__))))
 # sys.path.insert(0, os.path.join(root_dir, 'src'))
 #
-# from local_package import __version__  # noqa
+# from local_package import __version__
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'f-lib'
-copyright = '2019, Kyle Finley'
-author = 'Kyle Finley'
+project = "f-lib"
+copyright = "2019, Kyle Finley"  # noqa: A001
+author = "Kyle Finley"
 release = get_distribution(project).version
 version = release
 
@@ -60,11 +42,10 @@ version = release
 # ones.
 
 extensions = [
-    'recommonmark',
-    'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon',
-    'sphinx.ext.viewcode',
-    'sphinxcontrib.apidoc'
+    "sphinx.ext.autodoc",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.viewcode",
+    "sphinxcontrib.apidoc",
 ]
 
 # The file extensions of source files. Sphinx considers the files with
@@ -72,16 +53,16 @@ extensions = [
 # extensions to file types.
 
 source_suffix = {
-    '.rst': 'restructuredtext',
-    '.txt': 'restructuredtext',
-    '.md': 'markdown',
+    ".rst": "restructuredtext",
+    ".txt": "restructuredtext",
+    ".md": "markdown",
 }
 
 
 # The document name of the “master” document, that is, the document that
 # contains the root toctree directive.
 
-master_doc = 'index'
+master_doc = "index"
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -93,13 +74,14 @@ exclude_patterns = []
 # builtin/theme-specific templates). Relative paths are taken as relative
 # to the configuration directory.
 
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # The style name to use for Pygments highlighting of source code. If not
-# set, either the theme’s default style or 'sphinx' is selected for HTML
+# set, either the themes default style or 'sphinx' is selected for HTML
 # output.
 
-pygments_style = 'one_dark'  # TODO add custom style
+pygments_style = "one-dark"  # syntax highlighting style
+pygments_dark_style = "one-dark"  # syntax highlighting style
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -107,7 +89,7 @@ pygments_style = 'one_dark'  # TODO add custom style
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 
-html_theme = 'sphinx_rtd_theme'
+html_theme = "sphinx_rtd_theme"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -121,16 +103,13 @@ html_theme = 'sphinx_rtd_theme'
 # scheme like http://example.org/style.css. The attributes is used for
 # attributes of <link> tag. It defaults to an empty list.
 
-html_css_files = [
-    'css/rtd_dark.css',
-    # 'css/code_one_dark.scss'
-]
+html_css_files = []
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
@@ -146,7 +125,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'pydoc'
+htmlhelp_basename = "pydoc"
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -155,15 +134,12 @@ latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #
     # 'papersize': 'letterpaper',
-
     # The font size ('10pt', '11pt' or '12pt').
     #
     # 'pointsize': '10pt',
-
     # Additional stuff for the LaTeX preamble.
     #
     # 'preamble': '',
-
     # Latex figure (float) alignment
     #
     # 'figure_align': 'htbp',
@@ -173,8 +149,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, f'{project}.tex', f'{project} Documentation',
-     author, 'manual'),
+    (master_doc, f"{project}.tex", f"{project} Documentation", author, "manual"),
 ]
 
 
@@ -182,10 +157,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, project, f'{project} Documentation',
-     [author], 1)
-]
+man_pages = [(master_doc, project, f"{project} Documentation", [author], 1)]
 
 
 # -- Options for Texinfo output ----------------------------------------------
@@ -194,9 +166,15 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, project, f'{project} Documentation',
-     author, project, 'One line description of project.',
-     'Miscellaneous'),
+    (
+        master_doc,
+        project,
+        f"{project} Documentation",
+        author,
+        project,
+        "One line description of project.",
+        "Miscellaneous",
+    ),
 ]
 
 
@@ -215,23 +193,21 @@ epub_title = project
 # epub_uid = ''
 
 # A list of files that should not be packed into the epub file.
-epub_exclude_files = ['search.html']
+epub_exclude_files = ["search.html"]
 
 # -- Options for autodoc  -----------------------------------------------------
 
-autoclass_content = 'both'
+autoclass_content = "both"
 
 # -- Options for napoleon  ----------------------------------------------------
 napoleon_google_docstring = True
 napoleon_include_init_with_doc = False
 
 # -- Options for sphinxcontrib.apidoc  ----------------------------------------
-apidoc_excluded_paths = ['cfngin/commands', 'templates']
-apidoc_extra_args = [
-    f"--templatedir={os.path.join(DOC_SRC, '_templates/apidocs')}"
-]
-apidoc_module_dir = os.path.join(ROOT_DIR, 'f_lib')
+apidoc_excluded_paths = []
+apidoc_extra_args = [f"--templatedir={DOC_SRC / '_templates' / 'apidocs'}"]
+apidoc_module_dir = ROOT_DIR / "f_lib"
 apidoc_module_first = True
-apidoc_output_dir = 'apidocs'
+apidoc_output_dir = "apidocs"
 apidoc_separate_modules = True
-apidoc_toc_file = 'index'
+apidoc_toc_file = "index"

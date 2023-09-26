@@ -1,64 +1,49 @@
 """Type definitions for AWS Lambda."""
-import sys
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, TypedDict
 
-if sys.version_info[1] < 8:  # coverage: ignore
-    from typing_extensions import TypedDict  # noqa
-else:  # coverage: ignore
-    from typing import TypedDict  # noqa pylint: disable=E
-
-LambdaDict = Dict[str, Any]
+LambdaDict = dict[str, Any]
 
 
 class LambdaCognitoIdentity(TypedDict):
-    """Amazon Cognito identity that authorized a request.
-
-    Attributes:
-        cognito_identity_id (str): The authenticated Amazon Cognito identity.
-        cognito_identity_pool_id (str): The Amazon Cognito identity pool that
-            authorized the invocation.
-
-    """
+    """Amazon Cognito identity that authorized a request."""
 
     cognito_identity_id: str
+    """The authenticated Amazon Cognito identity."""
+
     cognito_identity_pool_id: str
+    """The Amazon Cognito identity pool that authorized the invocation."""
 
 
 class LambdaClientContextMobileClient(TypedDict):
-    """Mobile client information.
-
-    Attributes:
-        app_package_name (str): The client app package name.
-        app_title (str): The client app title.
-        app_version_code (str): The client app version code.
-        app_version_name (str): The client app version name.
-        installation_id (str): The client installation ID.
-
-    """
+    """Mobile client information."""
 
     app_package_name: str
+    """The client app package name."""
+
     app_title: str
+    """The client app title."""
+
     app_version_code: str
+    """The client app version code."""
+
     app_version_name: str
+    """The client app version name."""
+
     installation_id: str
+    """The client installation ID."""
 
 
 class LambdaClientContext(TypedDict):
-    """Client context that's provided to Lambda by the client application.
-
-    Attributes:
-        client (:class:`LambdaClientContextMobileClient`): Mobile client
-            information.
-        custom (Dict[str, Any]): A dict of custom values set by the mobile
-            client application.
-        env (Dict[str, Any]): A dict of environment information provided by
-            the AWS SDK.
-
-    """
+    """Client context that's provided to Lambda by the client application."""
 
     client: LambdaClientContextMobileClient
+    """Mobile client information."""
+
     custom: LambdaDict
+    """A dict of custom values set by the mobile client application."""
+
     env: LambdaDict
+    """A dict of environment information provided by the AWS SDK."""
 
 
 class LambdaContext:
@@ -68,33 +53,47 @@ class LambdaContext:
     the invocation, function, and execution environment.
 
     Attributes:
-        function_name (str): The name of the Lambda function.
-        invoked_function_arn (str): The Amazon Resource Name (ARN) that's used
-            to invoke the function. Indicates if the invoker specified a
-            version number or alias.
-        memory_limit_in_mb (str): The amount of memory that's allocated for
-            the function.
-        aws_request_id (str): The identifier of the invocation request.
-        log_group_name (str): The log group for the function.
-        log_stream_name (str): The log stream for the function instance.
-        identity (Optional[:class:`LambdaCognitoIdentity`]): *(mobile apps)*
-            Information about the Amazon Cognito identity that authorized the
-            request.
+        function_name (str):
+        invoked_function_arn (str):
+        memory_limit_in_mb (str):
+        aws_request_id (str):
+        log_group_name (str):
+        log_stream_name (str):
+        identity (Optional[:class:`LambdaCognitoIdentity`]):
         client_context (Optional[:class:`LambdaClientContext`]):
-            *(mobile apps)* Client context that's provided to Lambda by the
-            client application.
+
 
     """
 
-    function_name: str
-    function_version: str
-    invoked_function_arn: str
-    memory_limit_in_mb: int
     aws_request_id: str
+    """The identifier of the invocation request."""
+
+    client_context: LambdaClientContext | None
+    """*(mobile apps)* Client context that's provided to Lambda by the client application."""
+
+    function_name: str
+    """The name of the Lambda function."""
+
+    function_version: str
+    """The version of the Lambda function."""
+
+    identity: LambdaCognitoIdentity | None
+    """*(mobile apps)* Information about the Amazon Cognito identity that authorized the request."""
+
+    invoked_function_arn: str
+    """The Amazon Resource Name (ARN) that's used to invoke the function.
+    Indicates if the invoker specified a version number or alias.
+
+    """
+
     log_group_name: str
+    """The log group for the function."""
+
     log_stream_name: str
-    identity: Optional[LambdaCognitoIdentity]
-    client_context: Optional[LambdaClientContext]
+    """The log stream for the function instance."""
+
+    memory_limit_in_mb: int
+    """The amount of memory that's allocated for the function."""
 
     @staticmethod
     def get_remaining_time_in_millis() -> int:
@@ -141,7 +140,7 @@ class LambdaSqsEventMessageAttributes(TypedDict):
 
     Name: str
     Type: str
-    Value: Union[bytes, float, int, str]
+    Value: bytes | (float | (int | str))
 
 
 class LambdaSqsEventRecord(TypedDict):
@@ -175,7 +174,7 @@ class LambdaSqsEventRecord(TypedDict):
     eventSourceARN: str
     md5OfBody: str
     messageId: str
-    messageAttributes: List[LambdaSqsEventMessageAttributes]
+    messageAttributes: list[LambdaSqsEventMessageAttributes]
     receiptHandle: str
 
 
@@ -187,4 +186,4 @@ class LambdaSqsEvent(TypedDict):
 
     """
 
-    Records: List[LambdaSqsEventRecord]
+    Records: list[LambdaSqsEventRecord]

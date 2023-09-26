@@ -8,7 +8,6 @@ A library of useful functions and classes for python projects.
    :caption: Documentation
 
    apidocs/index
-   changelog
 
 
 Indices and Tables

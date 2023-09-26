@@ -4,12 +4,12 @@ about: Template for most pull requests.
 title: ''
 labels: ''
 assignees: ''
-
 ---
 
 ### Checklist
 
 <!-- You can erase any parts of this template not applicable to your Pull Request. -->
+
 - [ ] Have you followed the guidelines in our Contributing document?
 - [ ] Have you checked to ensure there aren't other open [Pull Requests](../../../pulls) for the same update/change?
 - [ ] Does your submission pass tests?
