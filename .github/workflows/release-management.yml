@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Drafts your next Release notes as Pull Requests are merged into "master"
-      - uses: toolmantim/release-drafter@v5.6.1
+      - uses: toolmantim/release-drafter@v5.18.1
         env:
           # using a PAT here will allow releases to trigger a build/release
           GITHUB_TOKEN: ${{ secrets.github_pat }}
