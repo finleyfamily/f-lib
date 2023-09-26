@@ -6,6 +6,7 @@
     ],
     "ignorePaths": [
         "**/.git",
+        "**/.gitignore",
         "**/package-lock.json",
         "**/package.json",
         "**/poetry.lock",
@@ -31,13 +32,18 @@
     "maxNumberOfProblems": 100,
     "version": "0.2",
     "words": [
+        "bysource",
         "envrc",
+        "howto",
+        "htbp",
         "ifeq",
+        "localtoc",
         "maint",
         "mdformat",
         "pydantic",
         "recommonmark",
         "toctree",
+        "undoc",
         "yamlfmt"
     ]
 }
