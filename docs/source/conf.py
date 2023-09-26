@@ -206,7 +206,7 @@ napoleon_include_init_with_doc = False
 # -- Options for sphinxcontrib.apidoc  ----------------------------------------
 apidoc_excluded_paths = []
 apidoc_extra_args = [f"--templatedir={DOC_SRC / '_templates' / 'apidocs'}"]
-apidoc_module_dir = ROOT_DIR / "f_lib"
+apidoc_module_dir = str(ROOT_DIR / "f_lib")
 apidoc_module_first = True
 apidoc_output_dir = "apidocs"
 apidoc_separate_modules = True
