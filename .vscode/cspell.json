@@ -13,6 +13,9 @@
         ".vscode/extensions.json",
         ".vscode/settings.json"
     ],
+    "import": [
+        "@itprokyle/cspell-dict/cspell-ext.json"
+    ],
     "language": "en",
     "languageSettings": [
         {
@@ -31,19 +34,5 @@
     ],
     "maxNumberOfProblems": 100,
     "version": "0.2",
-    "words": [
-        "bysource",
-        "envrc",
-        "howto",
-        "htbp",
-        "ifeq",
-        "localtoc",
-        "maint",
-        "mdformat",
-        "pydantic",
-        "recommonmark",
-        "toctree",
-        "undoc",
-        "yamlfmt"
-    ]
+    "words": []
 }
