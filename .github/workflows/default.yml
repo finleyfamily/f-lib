@@ -11,9 +11,9 @@ defaults:
     shell: bash
 
 env:
+  DEFAULT_PYTHON_VERSION: 3.11
   NODE_VERSION: '20'
   PYTEST_ADDOPTS: --color=yes
-
 
 jobs:
   pre-commit:
@@ -32,7 +32,7 @@ jobs:
     name: Lint Python
     strategy:
       matrix:
-        python-version: [3.9, '3.10', 3.11]
+        python-version: [3.11, 3.12]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.9, '3.10', 3.11]
+        python-version: [3.11, 3.12]
     steps:
       - uses: actions/checkout@v3
       - uses: ITProKyle/action-setup-python@v0.4.0
@@ -68,9 +68,6 @@ jobs:
       - lint-python
       - test-python
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.11]
     steps:
       - name: Checkout Repo (complete)
         uses: actions/checkout@v3
@@ -78,7 +75,9 @@ jobs:
           fetch-depth: 0
       - uses: ITProKyle/action-setup-python@v0.4.0
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
+      - name: Install Poetry Plugins
+        run: poetry self add "poetry-dynamic-versioning[plugin]"
       - name: Run Build
         run: make build
       - name: Upload Distribution Artifact

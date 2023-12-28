@@ -1,0 +1,57 @@
+name: Publish Release
+
+on:
+  release:
+    types:
+      - published
+
+env:
+  DEFAULT_PYTHON_VERSION: 3.11
+
+jobs:
+  build-pypi:
+    name: Build PyPi 📦
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo (complete)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: ITProKyle/action-setup-python@v0.4.0
+        with:
+          poetry-install: false
+          python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
+      - name: Install Poetry Plugins
+        run: poetry self add "poetry-dynamic-versioning[plugin]"
+      - name: Run Build
+        run: make build
+      - name: Upload Distribution Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pypi-dist
+          path: dist
+  publish-pypi:
+    name: Publish 📦 To PyPI
+    needs:
+      - build-pypi
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo (complete)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download Distribution Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: pypi-dist
+          path: dist
+      - uses: ITProKyle/action-setup-python@v0.4.0
+        with:
+          poetry-install: false
+          python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
+      - name: Install Poetry Plugins
+        run: poetry self add "poetry-dynamic-versioning[plugin]"
+      - name: Publish Distribution 📦 to PyPI
+        env:
+          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.pypi_password }}
+        run: poetry publish

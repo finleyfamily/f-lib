@@ -7,7 +7,7 @@ on:
       - master
 
 jobs:
-  update_draft_release:
+  update-draft-release:
     name: Draft release
     runs-on: ubuntu-latest
     steps:

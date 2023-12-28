@@ -5,10 +5,8 @@ name: Spell Check
 
 on: push
 
-
 env:
   NODE_VERSION: '20'
-
 
 jobs:
   spell-check:
