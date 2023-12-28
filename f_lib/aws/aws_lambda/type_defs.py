@@ -52,17 +52,6 @@ class LambdaContext:
     This object provides methods and properties that provide information about
     the invocation, function, and execution environment.
 
-    Attributes:
-        function_name (str):
-        invoked_function_arn (str):
-        memory_limit_in_mb (str):
-        aws_request_id (str):
-        log_group_name (str):
-        log_stream_name (str):
-        identity (Optional[:class:`LambdaCognitoIdentity`]):
-        client_context (Optional[:class:`LambdaClientContext`]):
-
-
     """
 
     aws_request_id: str
@@ -106,23 +95,19 @@ class LambdaContext:
 
 
 class LambdaSqsEventRecordAttributes(TypedDict):
-    """Attributes of an SQS message that are set by the SQS service.
-
-    Attributes:
-        ApproximateFirstReceiveTimestamp (str): The time the message was first
-            received from the queue (epoch time in milliseconds).
-        ApproximateReceiveCount (str): The number of times a message has been
-            received from the queue but not deleted.
-        SenderId (str): ID for IAM user/role/etc that sent the message.
-        SentTimestamp (str): The time the message was sent to the queue (epoch
-            time in milliseconds).
-
-    """
+    """Attributes of an SQS message that are set by the SQS service."""
 
     ApproximateFirstReceiveTimestamp: str
+    """The time the message was first received from the queue (epoch time in milliseconds)."""
+
     ApproximateReceiveCount: str
+    """The number of times a message has been received from the queue but not deleted."""
+
     SenderId: str
+    """ID for IAM user/role/etc that sent the message."""
+
     SentTimestamp: str
+    """The time the message was sent to the queue (epoch time in milliseconds)."""
 
 
 class LambdaSqsEventMessageAttributes(TypedDict):
@@ -130,60 +115,65 @@ class LambdaSqsEventMessageAttributes(TypedDict):
 
     https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-attributes.html
 
-    Attributes:
-        Name (str): The message attribute value.
-        Type (str): The message attribute data type. Supported types include
-            ``String``, ``Number``, and ``Binary``.
-        Value (Union[bytes, float, int, str]): The message attribute value.
-
     """
 
     Name: str
+    """The message attribute value."""
+
     Type: str
+    """The message attribute data type.
+
+    Supported types include ``String``, ``Number``, and ``Binary``.
+
+    """
+
     Value: bytes | (float | (int | str))
+    """The message attribute value."""
 
 
 class LambdaSqsEventRecord(TypedDict):
-    """Record from a Lambda invocation event from an SQS Queue.
+    """Record from a Lambda invocation event from an SQS Queue."""
 
-    Attributes:
-        attributes (:class:`LambdaSqsEventRecordAttributes`): Attributes of
-            an SQS message that are set by the SQS service.
-        awsRegion (str): AWS region code where the Queue is located.
-        body (str): The message's contents (not URL-encoded).
-        eventSource (str): AWS service that the event came from.
-        eventSourceARN (str): ARN of the AWS resource that the event came from.
-        md5OfBody (str): An MD5 digest of the non-URL-encoded message body
-            string.
-        messageId (str): A unique identifier for the message. A messageId is
-            considered unique across all AWS accounts for an extended
-            period of time.
-        messageAttributes (List[:class:`LambdaSqsEventMessageAttributes`]):
-            Optional metadata that can be added to an SQS message.
-        receiptHandle (str): An identifier associated with the act of
-            receiving the message. A new receipt handle is returned every time
-            you receive a message. When deleting a message, you provide the
-            last received receipt handle to delete the message.
+    attributes: LambdaSqsEventRecordAttributes
+    """Attributes of an SQS message that are set by the SQS service."""
+
+    awsRegion: str
+    """AWS region code where the Queue is located."""
+
+    body: str
+    """The message's contents (not URL-encoded)."""
+
+    eventSource: str
+    """AWS service that the event came from."""
+
+    eventSourceARN: str
+    """ARN of the AWS resource that the event came from."""
+
+    md5OfBody: str
+    """An MD5 digest of the non-URL-encoded message body string."""
+
+    messageId: str
+    """A unique identifier for the message.
+
+    A messageId is considered unique across all AWS accounts for an extended
+    period of time.
 
     """
 
-    attributes: LambdaSqsEventRecordAttributes
-    awsRegion: str
-    body: str
-    eventSource: str
-    eventSourceARN: str
-    md5OfBody: str
-    messageId: str
     messageAttributes: list[LambdaSqsEventMessageAttributes]
+    """Optional metadata that can be added to an SQS message."""
+
     receiptHandle: str
+    """An identifier associated with the act of receiving the message.
+
+    A new receipt handle is returned every time you receive a message.
+    When deleting a message, you provide the last received receipt handle to delete the message.
+
+    """
 
 
 class LambdaSqsEvent(TypedDict):
-    """Lambda invocation event from an SQS Queue.
-
-    Attributes:
-        Records (List[:class:`LambdaSqsEventRecord`]): List of SQS messages.
-
-    """
+    """Lambda invocation event from an SQS Queue."""
 
     Records: list[LambdaSqsEventRecord]
+    """List of SQS messages."""

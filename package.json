@@ -1,9 +1,8 @@
 {
-  "author": "Kyle Finley <kyle@finley.sh>",
   "devDependencies": {
-    "@itprokyle/cspell-dict": "^1.0.0",
-    "cspell": "^7.3.6",
-    "pyright": "^1.1.328"
+    "@itprokyle/cspell-dict": "^1.1.0",
+    "cspell": "^8.2.3",
+    "pyright": "^1.1.343"
   },
   "name": "f-lib",
   "version": "0.0.0"

@@ -14,6 +14,7 @@ help: ## show this message
 build: ## build the PyPi release
 	@poetry build
 
+.PHONY: docs
 docs: ## delete build artifacts, start sphinx-autobuild server, & open browser window
 	@if [[ -z "$${CI}" ]]; then \
 		$(MAKE) --no-print-directory -C docs docs; \
@@ -93,5 +94,10 @@ spellcheck: ## run cspell
 		--relative \
 		--show-context
 
-test: ## run tests
-	@echo "no tests configured for this project yet"
+test:  ## run integration and unit tests
+	@echo "Running integration & unit tests..."
+	@poetry run pytest $(PYTEST_REPORT_OPTS) \
+		--cov f_lib \
+		--cov-report term-missing:skip-covered \
+		--dist loadfile \
+		--numprocesses auto

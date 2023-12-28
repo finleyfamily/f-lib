@@ -1,18 +1,16 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       - id: check-json
       - id: check-merge-conflict
       - id: check-yaml
-        args:
-          - --unsafe  # needed for parsing CFN
       - id: end-of-file-fixer
-        exclude: .*\.json-result
       - id: file-contents-sorter
         args: [--unique]
         files: |
           (?x)^(
+            \.dockerignore|
             \.gitignore
           )$
       - id: pretty-format-json
@@ -30,6 +28,14 @@ repos:
       - id: trailing-whitespace
       - id: mixed-line-ending
         args: [--fix=lf]
+  - repo: https://github.com/pappasam/toml-sort
+    rev: v0.23.1
+    hooks:
+      - id: toml-sort-fix
+        exclude: |
+          (?x)^(
+            (.*/)?poetry\.lock
+          )$
   - repo: https://github.com/ITProKyle/pre-commit-hook-yamlfmt
     rev: v0.2.1
     hooks:
@@ -44,7 +50,7 @@ repos:
           - mdformat-gfm
           - mdformat-toc
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.37.0
+    rev: v0.38.0
     hooks:
       - id: markdownlint
         language_version: lts
