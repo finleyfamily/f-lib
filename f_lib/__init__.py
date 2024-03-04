@@ -1,4 +1,5 @@
-"""Import modules."""
+"""Finley library."""
+
 from importlib.metadata import PackageNotFoundError, version
 
 from . import aws, constants, mixins, utils

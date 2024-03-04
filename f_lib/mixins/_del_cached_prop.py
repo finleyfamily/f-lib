@@ -1,4 +1,5 @@
 """Delete cached property mixin."""
+
 from __future__ import annotations
 
 from contextlib import suppress

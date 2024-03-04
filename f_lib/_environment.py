@@ -1,4 +1,5 @@
 """Environment object class."""
+
 import json
 import logging
 import os

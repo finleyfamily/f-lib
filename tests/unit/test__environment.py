@@ -1,4 +1,5 @@
 """Test f_lib._environment."""
+
 from __future__ import annotations
 
 import os

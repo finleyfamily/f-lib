@@ -76,7 +76,7 @@ setup-poetry: ## setup python virtual environment
 	@if [[ -d .venv ]]; then \
 		poetry run python -m pip --version >/dev/null 2>&1 || rm -rf ./.venv/* ./.venv/.*; \
 	fi
-	@poetry check --lock
+	@poetry check
 	@poetry install $(POETRY_OPTS) --sync
 
 setup-pre-commit: ## install pre-commit git hooks
@@ -99,5 +99,5 @@ test:  ## run integration and unit tests
 	@poetry run pytest $(PYTEST_REPORT_OPTS) \
 		--cov f_lib \
 		--cov-report term-missing:skip-covered \
-		--dist loadfile \
-		--numprocesses auto
+		--dist worksteal \
+		--numprocesses logical

@@ -1,4 +1,5 @@
 """Pytest configuration, fixtures, and plugins."""
+
 from __future__ import annotations
 
 import os

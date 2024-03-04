@@ -1,4 +1,5 @@
 """Test f_lib._system_info."""
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -55,22 +56,14 @@ class TestSystemInfo:
         with pytest.raises(UnknownPlatformArchitectureError):
             SystemInfo().architecture  # noqa: B018
 
-    @pytest.mark.parametrize(
-        ("expected", "maxsize"), [(False, 2**33), (True, 2**32)]
-    )
-    def test_is_32bit(
-        self, expected: bool, maxsize: int, mocker: MockerFixture
-    ) -> None:
+    @pytest.mark.parametrize(("expected", "maxsize"), [(False, 2**33), (True, 2**32)])
+    def test_is_32bit(self, expected: bool, maxsize: int, mocker: MockerFixture) -> None:
         """Test is_32bit."""
         mocker.patch(f"{MODULE}.sys.maxsize", maxsize)
         assert SystemInfo().is_32bit is expected
 
-    @pytest.mark.parametrize(
-        ("expected", "maxsize"), [(False, 2**32), (True, 2**33)]
-    )
-    def test_is_64bit(
-        self, expected: bool, maxsize: int, mocker: MockerFixture
-    ) -> None:
+    @pytest.mark.parametrize(("expected", "maxsize"), [(False, 2**32), (True, 2**33)])
+    def test_is_64bit(self, expected: bool, maxsize: int, mocker: MockerFixture) -> None:
         """Test is_64bit."""
         mocker.patch(f"{MODULE}.sys.maxsize", maxsize)
         assert SystemInfo().is_64bit is expected
@@ -80,9 +73,7 @@ class TestSystemInfo:
     )
     def test_is_arm(self, expected: bool, machine: str, mocker: MockerFixture) -> None:
         """Test is_arm."""
-        platform_machine = mocker.patch(
-            f"{MODULE}.platform.machine", return_value=machine
-        )
+        platform_machine = mocker.patch(f"{MODULE}.platform.machine", return_value=machine)
         assert SystemInfo().is_arm is expected
         platform_machine.assert_called_once_with()
 
@@ -109,8 +100,6 @@ class TestSystemInfo:
     )
     def test_is_x86(self, expected: bool, machine: str, mocker: MockerFixture) -> None:
         """Test is_x86."""
-        platform_machine = mocker.patch(
-            f"{MODULE}.platform.machine", return_value=machine
-        )
+        platform_machine = mocker.patch(f"{MODULE}.platform.machine", return_value=machine)
         assert SystemInfo().is_x86 is expected
         platform_machine.assert_called_once_with()

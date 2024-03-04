@@ -1,4 +1,5 @@
 """Test f_lib.mixins._del_cached_prop."""
+
 from __future__ import annotations
 
 from functools import cached_property

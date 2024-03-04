@@ -1,4 +1,5 @@
 """Test f_lib._os_info."""
+
 # ruff: noqa: ARG002
 from __future__ import annotations
 
@@ -27,9 +28,7 @@ def clear_os_info() -> None:
 class TestOsInfo:
     """Test OsInfo."""
 
-    def test___platform_dirs_darwin(
-        self, mocker: MockerFixture, platform_darwin: None
-    ) -> None:
+    def test___platform_dirs_darwin(self, mocker: MockerFixture, platform_darwin: None) -> None:
         """Test _platform_dirs macOS."""
         mock_unix = mocker.patch(f"{MODULE}.Unix", return_value="success")
         mock_windows = mocker.patch(f"{MODULE}.Windows")
@@ -38,9 +37,7 @@ class TestOsInfo:
         mock_windows.assert_not_called()
         mock_unix.assert_called_once_with(appname="f-lib", appauthor="finley")
 
-    def test___platform_dirs_linux(
-        self, mocker: MockerFixture, platform_linux: None
-    ) -> None:
+    def test___platform_dirs_linux(self, mocker: MockerFixture, platform_linux: None) -> None:
         """Test _platform_dirs Linux."""
         mock_unix = mocker.patch(f"{MODULE}.Unix", return_value="success")
         mock_windows = mocker.patch(f"{MODULE}.Windows")
@@ -49,9 +46,7 @@ class TestOsInfo:
         mock_windows.assert_not_called()
         mock_unix.assert_called_once_with(appname="f-lib", appauthor="finley")
 
-    def test___platform_dirs_windows(
-        self, mocker: MockerFixture, platform_windows: None
-    ) -> None:
+    def test___platform_dirs_windows(self, mocker: MockerFixture, platform_windows: None) -> None:
         """Test _platform_dirs Windows."""
         mock_unix = mocker.patch(f"{MODULE}.Unix")
         mock_windows = mocker.patch(f"{MODULE}.Windows", return_value="success")

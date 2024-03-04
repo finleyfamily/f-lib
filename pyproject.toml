@@ -1,7 +1,3 @@
-[build-system]
-build-backend = "poetry.core.masonry.api"
-requires = ["poetry-core"]
-
 [tool.poetry]
 name = "f-lib"
 version = "0.0.0"
@@ -10,7 +6,6 @@ classifiers = [
   "Intended Audience :: Developers",
   "Natural Language :: English",
   "Operating System :: OS Independent",
-  "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Topic :: Utilities",
@@ -32,36 +27,38 @@ python = "^3.11"
 platformdirs = "^4.1.0"
 
 [tool.poetry.group.dev.dependencies]
-pre-commit = "^3.6.0"
+pre-commit = "^3.6.2"
 
 [tool.poetry.group.docs.dependencies]
 doc8 = "^1.1.1"
-furo = "^2023.9.10"
+furo = "^2024.1.29"
 sphinx = "^7.2.6"
-sphinx-autobuild = "^2021.3.14"
+sphinx-autobuild = "^2024.2.4"
 sphinx-copybutton = "^0.5.2"
 sphinx-design = "^0.5.0"
-sphinxcontrib-apidoc = "^0.4.0"
+sphinxcontrib-apidoc = "^0.5.0"
 sphinxcontrib-jquery = "^4.1"
 
 [tool.poetry.group.lint.dependencies]
-black = "^23.12.0"
-ruff = "^0.1.9"
+black = "^24.2.0"
+ruff = "^0.3.0"
 
 [tool.poetry.group.test.dependencies]
-pytest = "^7.4.3"
+pytest = "^8.0.2"
 pytest-cov = "^4.1.0"
 pytest-mock = "^3.12.0"
 pytest-subprocess = "^1.5.0"
-pytest-sugar = "^0.9.7"
-pytest-xdist = "^3.3.1"
+pytest-sugar = "^1.0.0"
+pytest-xdist = "^3.5.0"
 
 [[tool.poetry.source]]
 name = "PyPI"
 priority = "primary"
 
 [tool.poetry.urls]
-"Bug Tracker" = "https://github.com/ITProKyle/f-lib/issues"
+bugs = "https://github.com/ITProKyle/f-lib/issues"
+changelog = "https://github.com/ITProKyle/f-lib/releases"
+issues = "https://github.com/ITProKyle/f-lib/issues"
 
 [tool.black]
 force-exclude = '''
@@ -76,7 +73,7 @@ force-exclude = '''
 )/
 '''
 include = '\.pyi?$'
-line-length = 88
+line-length = 100
 target-version = ["py311", "py312"]
 
 [tool.coverage.report]
@@ -152,8 +149,13 @@ python_files = ["test_*.py"]
 python_functions = ["test_*"]
 testpaths = ["tests"]
 
-[tool.ruff]  # https://beta.ruff.rs/docs/settings/#top-level
+[tool.ruff]  # https://docs.astral.sh/ruff/settings/#top-level
 force-exclude = true
+line-length = 120
+show-fixes = true
+target-version = "py311"
+
+[tool.ruff.lint]  # https://docs.astral.sh/ruff/settings/#lint
 ignore = [
   "ANN101",  # Missing type annotation for `self` in method
   "ANN102",  # Missing type annotation for `cls` in classmethod
@@ -172,12 +174,9 @@ ignore = [
   "TID252",  # Relative imports from parent modules are banned
 ]
 ignore-init-module-imports = true
-line-length = 120
 select = ["ALL"]
-show-fixes = true
-target-version = "py311"
 
-[tool.ruff.extend-per-file-ignores]
+[tool.ruff.lint.extend-per-file-ignores]  # https://docs.astral.sh/ruff/settings/#lintextend-per-file-ignores
 "*.py" = [
   "PYI024",  # Use `typing.NamedTuple` instead of `collections.namedtuple` - should only apply to pyi
 ]
@@ -191,16 +190,16 @@ target-version = "py311"
   "SLF001",  # Private member accessed - fine in tests
 ]
 
-[tool.ruff.flake8-type-checking]  # https://beta.ruff.rs/docs/settings/#flake8-type-checking
+[tool.ruff.lint.flake8-type-checking]  # https://docs.astral.sh/ruff/settings/#lint_flake8-type-checking_runtime-evaluated-base-classes
 runtime-evaluated-base-classes = [
   "pydantic.BaseModel",
   "pydantic.BeforeValidator",
 ]
 
-[tool.ruff.pydocstyle]  # https://beta.ruff.rs/docs/settings/#pydocstyle
+[tool.ruff.lint.pydocstyle]  # https://docs.astral.sh/ruff/settings/#lintpydocstyle
 convention = "google"
 
-[tool.ruff.pylint]  # https://beta.ruff.rs/docs/settings/#pylint
+[tool.ruff.lint.pylint]  # https://docs.astral.sh/ruff/settings/#lintpylint
 allow-magic-value-types = ["bytes", "int", "str"]
 max-args = 15
 max-returns = 10
@@ -208,8 +207,12 @@ max-returns = 10
 [tool.tomlsort]
 all = true
 in_place = true
-sort_first = ["tool.poetry"]
+sort_first = ["tool", "tool.poetry"]
 spaces_before_inline_comment = 2
 trailing_comma_inline_array = true
 overrides."tool.poetry".first = ["name", "version"]
 overrides."tool.poetry.dependencies".first = ["python"]
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]

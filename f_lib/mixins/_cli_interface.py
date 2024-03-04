@@ -1,4 +1,5 @@
 """CLI interface mixin."""
+
 from __future__ import annotations
 
 import logging
@@ -55,11 +56,7 @@ class CliInterfaceMixin:
         """
         cmd = [
             cls.EXECUTABLE,
-            *(
-                __command
-                if isinstance(__command, list)
-                else ([__command] if __command else [])
-            ),
+            *(__command if isinstance(__command, list) else ([__command] if __command else [])),
         ]
         cmd.extend(convert_kwargs_to_shell_list(**kwargs))
         LOGGER.debug("generated command: %s", convert_list_to_shell_str(cmd))
@@ -72,8 +69,7 @@ class CliInterfaceMixin:
         *,
         capture_output: Literal[True],
         env: dict[str, str] | None = ...,
-    ) -> str:
-        ...
+    ) -> str: ...
 
     @overload
     def _run_command(
@@ -83,8 +79,7 @@ class CliInterfaceMixin:
         capture_output: bool = ...,
         env: dict[str, str] | None = ...,
         suppress_output: Literal[True] = ...,
-    ) -> str:
-        ...
+    ) -> str: ...
 
     @overload
     def _run_command(
@@ -93,8 +88,7 @@ class CliInterfaceMixin:
         *,
         env: dict[str, str] | None = ...,
         suppress_output: Literal[False],
-    ) -> None:
-        ...
+    ) -> None: ...
 
     @overload
     def _run_command(
@@ -104,8 +98,7 @@ class CliInterfaceMixin:
         capture_output: bool = ...,
         env: dict[str, str] | None = ...,
         suppress_output: bool = ...,
-    ) -> str | None:
-        ...
+    ) -> str | None: ...
 
     def _run_command(
         self,
@@ -129,9 +122,7 @@ class CliInterfaceMixin:
                 returned as a string instead of being being written directly.
 
         """
-        cmd_str = (
-            command if isinstance(command, str) else convert_list_to_shell_str(command)
-        )
+        cmd_str = command if isinstance(command, str) else convert_list_to_shell_str(command)
         LOGGER.debug("running command: %s", cmd_str)
         if suppress_output:
             return subprocess.check_output(

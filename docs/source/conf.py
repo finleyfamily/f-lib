@@ -3,6 +3,7 @@
 https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 """
+
 import os
 from datetime import date
 from pathlib import Path
@@ -13,7 +14,6 @@ ROOT_DIR = Path(__file__).parent.parent.parent
 DOC_SRC = ROOT_DIR / "docs" / "source"
 
 # -- Project information -----------------------------------------------------
-
 project = "f-lib"
 copyright = f"{date.today().year}, Kyle Finley"  # noqa: A001, DTZ011
 author = "Kyle Finley"

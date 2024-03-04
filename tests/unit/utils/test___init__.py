@@ -1,4 +1,5 @@
 """Test f_lib.utils.__init__."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -32,9 +33,7 @@ MODULE = "f_lib.utils"
         ),
     ],
 )
-def test_convert_kwargs_to_shell_list(
-    expected: list[str], provided: dict[str, Any]
-) -> None:
+def test_convert_kwargs_to_shell_list(expected: list[str], provided: dict[str, Any]) -> None:
     """Test convert_kwargs_to_shell_list."""
     assert convert_kwargs_to_shell_list(**provided) == expected
 
@@ -52,9 +51,7 @@ def test_convert_list_to_shell_str(mocker: MockerFixture, platform: str) -> None
 
 def test_convert_list_to_shell_str_windows(mocker: MockerFixture) -> None:
     """Test convert_list_to_shell_str on Windows systems."""
-    mock_list2cmdline = mocker.patch(
-        f"{MODULE}.subprocess.list2cmdline", return_value="success"
-    )
+    mock_list2cmdline = mocker.patch(f"{MODULE}.subprocess.list2cmdline", return_value="success")
     mocker.patch("platform.system", return_value="Windows")
     mock_join = mocker.patch("shlex.join")
     assert convert_list_to_shell_str("foo") == mock_list2cmdline.return_value

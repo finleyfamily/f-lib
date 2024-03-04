@@ -1,4 +1,5 @@
 """Test f_lib.mixins._cli_interface."""
+
 from __future__ import annotations
 
 import subprocess
@@ -36,9 +37,7 @@ class TestCliInterfaceMixin:
     ) -> None:
         """Test _run_command."""
         ctx_env = {"foo": "bar", "bar": "foo"}
-        mock_subprocess = mocker.patch(
-            f"{MODULE}.subprocess.check_output", return_value="success"
-        )
+        mock_subprocess = mocker.patch(f"{MODULE}.subprocess.check_output", return_value="success")
         assert (
             self.Kls(tmp_path, Mock(vars=ctx_env))._run_command("test", env=env)
             == mock_subprocess.return_value
@@ -88,17 +87,13 @@ class TestCliInterfaceMixin:
         assert excinfo.value.returncode == 1
         assert excinfo.value.output == "fail"
 
-    def test__run_command_no_suppress_output(
-        self, mocker: MockerFixture, tmp_path: Path
-    ) -> None:
+    def test__run_command_no_suppress_output(self, mocker: MockerFixture, tmp_path: Path) -> None:
         """Test _run_command."""
         env = {"foo": "bar"}
         mock_convert_list_to_shell_str = mocker.patch(
             f"{MODULE}.convert_list_to_shell_str", return_value="success"
         )
-        mock_subprocess = mocker.patch(
-            f"{MODULE}.subprocess.check_call", return_value=0
-        )
+        mock_subprocess = mocker.patch(f"{MODULE}.subprocess.check_call", return_value=0)
         assert not self.Kls(tmp_path, Mock(vars=env))._run_command(
             ["foo", "bar"], suppress_output=False
         )

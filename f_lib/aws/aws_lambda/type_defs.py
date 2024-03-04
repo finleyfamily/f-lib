@@ -1,4 +1,5 @@
 """Type definitions for AWS Lambda."""
+
 from typing import Any, TypedDict
 
 LambdaDict = dict[str, Any]
