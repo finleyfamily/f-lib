@@ -73,7 +73,7 @@ class LogLevel(IntEnum):
         | ``2``     | :attr:`f_lib.logging.LogLevel.VERBOSE` |
         | ``3``     | :attr:`f_lib.logging.LogLevel.DEBUG`   |
         | ``4``     | :attr:`f_lib.logging.LogLevel.DEBUG`   |
-        | ``5``+    | :attr:`f_lib.logging.LogLevel.NOTSET`  |
+        | ``5`` +   | :attr:`f_lib.logging.LogLevel.NOTSET`  |
         +-----------+----------------------------------------+
 
         Args:

@@ -23,7 +23,7 @@ logging.addLevelName(LogLevel.NOTICE, LogLevel.NOTICE.name)
 logging.addLevelName(LogLevel.SUCCESS, LogLevel.SUCCESS.name)
 
 
-class _LoggerSettings(TypedDict):
+class LoggerSettings(TypedDict):
     """Logger settings."""
 
     markup: bool
@@ -33,7 +33,7 @@ class _LoggerSettings(TypedDict):
 class Logger(logging.Logger):
     """Customized subclass of :class:`logging.Logger`."""
 
-    settings: _LoggerSettings
+    settings: LoggerSettings
     """Custom logger settings."""
 
     def __init__(
