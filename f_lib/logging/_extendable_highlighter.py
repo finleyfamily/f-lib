@@ -1,4 +1,4 @@
-"""Custom :class:`rich.highlighter.Highlighter`."""
+"""Custom :class:`~rich.highlighter.Highlighter`."""
 
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ class HighlightTypedDict(TypedDict):
 
 
 class ExtendableHighlighter(Highlighter):
-    """Extendable :class:`rich.highlighter.Highlighter`."""
+    """Extendable :class:`~rich.highlighter.Highlighter`."""
 
     __slots__ = ()
 

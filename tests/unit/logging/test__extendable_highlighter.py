@@ -1,11 +1,11 @@
-"""Test f_lib.logging._highlighters."""
+"""Test f_lib.logging._extendable_highlighter."""
 
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
 from unittest.mock import Mock, call
 
-from f_lib.logging._highlighters import ExtendableHighlighter
+from f_lib.logging._extendable_highlighter import ExtendableHighlighter
 
 if TYPE_CHECKING:
     from pytest_mock import MockerFixture
