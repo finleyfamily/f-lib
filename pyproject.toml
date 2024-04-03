@@ -25,9 +25,12 @@ repository = "https://github.com/ITProKyle/f-lib"
 [tool.poetry.dependencies]
 python = "^3.11"
 platformdirs = "^4.1.0"
+pydantic = "^2.6.4"
+pydantic-settings = "^2.2.1"  # TODO (kyle): update once released https://github.com/pydantic/pydantic-settings/pull/255
+rich = "^13.7.1"
 
 [tool.poetry.group.dev.dependencies]
-pre-commit = "^3.6.2"
+pre-commit = "^3.7.0"
 
 [tool.poetry.group.docs.dependencies]
 doc8 = "^1.1.1"
@@ -44,9 +47,9 @@ black = "^24.2.0"
 ruff = "^0.3.0"
 
 [tool.poetry.group.test.dependencies]
-pytest = "^8.0.2"
-pytest-cov = "^4.1.0"
-pytest-mock = "^3.12.0"
+pytest = "^8.1.1"
+pytest-cov = "^5.0.0"
+pytest-mock = "^3.14.0"
 pytest-subprocess = "^1.5.0"
 pytest-sugar = "^1.0.0"
 pytest-xdist = "^3.5.0"

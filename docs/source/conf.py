@@ -41,6 +41,7 @@ extensions = [
 highlight_language = "default"
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),  # link to python docs
+    "rich": ("https://rich.readthedocs.io/en/stable", None),  # link to rich docs
 }
 language = "en"
 master_doc = "index"
