@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 import logging
-from copy import deepcopy
-from typing import TYPE_CHECKING, Any, Self, TypeAlias, TypedDict, cast
+from typing import TYPE_CHECKING, Any, Self, TypeAlias, cast
+
+from pydantic import BaseModel, ConfigDict
 
 from ._log_level import LogLevel
 
@@ -23,10 +24,12 @@ logging.addLevelName(LogLevel.NOTICE, LogLevel.NOTICE.name)
 logging.addLevelName(LogLevel.SUCCESS, LogLevel.SUCCESS.name)
 
 
-class LoggerSettings(TypedDict):
+class LoggerSettings(BaseModel):
     """Logger settings."""
 
-    markup: bool
+    model_config = ConfigDict(extra="forbid")
+
+    markup: bool = False
     """Enable rich markup (if available)."""
 
 
@@ -41,11 +44,14 @@ class Logger(logging.Logger):
         name: str,
         level: LogLevel = LogLevel.NOTSET,
         *,
-        markup: bool = False,
+        settings: LoggerSettings | None = None,
     ) -> None:
         """Initialize the logger with a name, level, and settings."""
         super().__init__(name, level)
-        self.settings = {"markup": markup}
+        if settings is None:
+            self.settings = LoggerSettings()
+        else:
+            self.settings = settings
 
     def _log(
         self,
@@ -58,15 +64,16 @@ class Logger(logging.Logger):
         stacklevel: int = 1,
     ) -> None:
         """Wrap log messages with color."""
-        extra = {**deepcopy(extra)} if extra else {}
-        if self.settings["markup"]:
-            extra.setdefault("markup", self.settings["markup"])
+        local_extra = self.settings.model_dump()
+        if extra:
+            local_extra.update(extra)
+        stacklevel += 1
         super()._log(
             level,
             msg,
             args,
             exc_info=exc_info,
-            extra=extra,
+            extra=local_extra,
             stack_info=stack_info,
             stacklevel=stacklevel,
         )
@@ -74,7 +81,7 @@ class Logger(logging.Logger):
     def notice(
         self,
         msg: Exception | str,
-        *,
+        *args: object,
         exc_info: bool = False,
         extra: Mapping[str, object] | None = None,
         **kwargs: Any,  # noqa: ANN401
@@ -83,18 +90,19 @@ class Logger(logging.Logger):
 
         Args:
             msg: String template or exception to use for the log record.
+            *args: Replacement values for the string template.
             exc_info: Include exception traceback in the log record.
             extra: Dictionary to populated additional information in the log record.
             **kwargs: Arbitrary keyword arguments
 
         """
         if self.isEnabledFor(LogLevel.NOTICE):
-            self._log(LogLevel.NOTICE, msg, (), exc_info=exc_info, extra=extra, **kwargs)
+            self._log(LogLevel.NOTICE, msg, args, exc_info=exc_info, extra=extra, **kwargs)
 
     def success(
         self,
         msg: Exception | str,
-        *,
+        *args: object,
         exc_info: bool = False,
         extra: Mapping[str, object] | None = None,
         **kwargs: Any,  # noqa: ANN401
@@ -103,18 +111,19 @@ class Logger(logging.Logger):
 
         Args:
             msg: String template or exception to use for the log record.
+            *args: Replacement values for the string template.
             exc_info: Include exception traceback in the log record.
             extra: Dictionary to populated additional information in the log record.
             **kwargs: Arbitrary keyword arguments
 
         """
         if self.isEnabledFor(LogLevel.SUCCESS):
-            self._log(LogLevel.SUCCESS, msg, (), exc_info=exc_info, extra=extra, **kwargs)
+            self._log(LogLevel.SUCCESS, msg, args, exc_info=exc_info, extra=extra, **kwargs)
 
     def verbose(
         self,
         msg: Exception | str,
-        *,
+        *args: object,
         exc_info: bool = False,
         extra: Mapping[str, object] | None = None,
         **kwargs: Any,  # noqa: ANN401
@@ -123,21 +132,23 @@ class Logger(logging.Logger):
 
         Args:
             msg: String template or exception to use for the log record.
+            *args: Replacement values for the string template.
             exc_info: Include exception traceback in the log record.
             extra: Dictionary to populated additional information in the log record.
             **kwargs: Arbitrary keyword arguments
 
         """
         if self.isEnabledFor(LogLevel.VERBOSE):
-            self._log(LogLevel.VERBOSE, msg, (), exc_info=exc_info, extra=extra, **kwargs)
+            self._log(LogLevel.VERBOSE, msg, args, exc_info=exc_info, extra=extra, **kwargs)
 
     @classmethod
     def get_logger(cls: type[Self], name: str, *, markup: bool = True) -> Self:
         """Return a logger with the specified name, creating it if necessary.
 
-        This class method replaces :func:`logging.getLogger` to provide the correct logger
-        type, only needing to correct it once.
-        However, this wrapper requires a name to be provided to avoid use of the root logger.
+        This class method replaces :func:`logging.getLogger` to provide the correct
+        logger type, only needing to correct it once.
+        However, this wrapper requires a name to be provided to avoid implicit use
+        of the root logger.
 
         .. rubric:: Example
         .. code-block:: python
@@ -155,5 +166,5 @@ class Logger(logging.Logger):
 
         """
         rv = cast("Self", cls.manager.getLogger(name))
-        rv.settings["markup"] = markup
+        rv.settings.markup = markup
         return rv

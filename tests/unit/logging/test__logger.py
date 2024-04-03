@@ -8,7 +8,7 @@ from unittest.mock import Mock
 import pytest
 
 from f_lib.logging._log_level import LogLevel
-from f_lib.logging._logger import Logger
+from f_lib.logging._logger import Logger, LoggerSettings
 
 if TYPE_CHECKING:
 
@@ -33,21 +33,23 @@ class TestLogger:
     def test__log(self, mocker: MockerFixture) -> None:
         """Test _log."""
         mock_log = mocker.patch("f_lib.logging._logger.logging.Logger._log")
-        assert not Logger("test")._log(LogLevel.INFO, "this is a test", ())
+        assert not Logger("test")._log(LogLevel.INFO, "this is a test", (), extra={"key": "val"})
         mock_log.assert_called_once_with(
             LogLevel.INFO,
             "this is a test",
             (),
             exc_info=None,
-            extra={},
+            extra={"key": "val", "markup": False},
             stack_info=False,
-            stacklevel=1,
+            stacklevel=2,
         )
 
     def test__log_markup(self, mocker: MockerFixture) -> None:
         """Test _log markup."""
         mock_log = mocker.patch("f_lib.logging._logger.logging.Logger._log")
-        assert not Logger("test", markup=True)._log(LogLevel.INFO, "this is a test", ())
+        assert not Logger("test", settings=LoggerSettings(markup=True))._log(
+            LogLevel.INFO, "this is a test", ()
+        )
         mock_log.assert_called_once_with(
             LogLevel.INFO,
             "this is a test",
@@ -55,16 +57,16 @@ class TestLogger:
             exc_info=None,
             extra={"markup": True},
             stack_info=False,
-            stacklevel=1,
+            stacklevel=2,
         )
 
     def test_get_logger(self, mocker: MockerFixture) -> None:
         """Test get_logger."""
-        result = Mock(name="success", settings={})
+        result = Mock(name="success", settings=LoggerSettings(markup=False))
         get_logger = mocker.patch.object(Logger.manager, "getLogger", return_value=result)
         assert Logger.get_logger("foo") == result
         get_logger.assert_called_once_with("foo")
-        assert result.settings["markup"]
+        assert result.setting.markup
 
     @pytest.mark.parametrize("enabled", [False, True])
     def test_notice(self, enabled: bool, is_enabled_for: Mock, log: Mock) -> None:

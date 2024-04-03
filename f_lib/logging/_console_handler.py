@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING
 
 from rich.logging import RichHandler
@@ -9,13 +10,109 @@ from rich.markup import escape
 from rich.text import Text
 
 if TYPE_CHECKING:
-    import logging
+    from collections.abc import Callable, Iterable
+    from datetime import datetime
+    from types import ModuleType
 
-    from rich.console import ConsoleRenderable
+    from rich.console import Console, ConsoleRenderable
+    from rich.highlighter import Highlighter
+
+    from ._fluid_log_render import FluidLogRender
 
 
 class ConsoleHandler(RichHandler):
     """Custom console :class:`~rich.logging.RichHandler`."""
+
+    def __init__(  # noqa: PLR0913
+        self,
+        level: int | str = logging.NOTSET,
+        console: Console | None = None,
+        *,
+        enable_link_path: bool = True,
+        highlighter: Highlighter | None = None,
+        keywords: list[str] | None = None,
+        locals_max_length: int = 10,
+        locals_max_string: int = 80,
+        log_render_kls: type[FluidLogRender] | None = None,
+        log_time_format: str | Callable[[datetime], Text] = "[%x %X]",
+        markup: bool = False,
+        name: str = "rich.console",
+        omit_repeated_times: bool = True,
+        rich_tracebacks: bool = False,
+        show_level: bool = True,
+        show_path: bool = True,
+        show_time: bool = True,
+        tracebacks_extra_lines: int = 3,
+        tracebacks_show_locals: bool = False,
+        tracebacks_suppress: Iterable[str | ModuleType] = (),
+        tracebacks_theme: str | None = None,
+        tracebacks_width: int | None = None,
+        tracebacks_word_wrap: bool = True,
+        **kwargs: object,
+    ) -> None:
+        """Instantiate class.
+
+        Args:
+            level: Log level.
+            console: Optional console instance to write logs.
+                Default will use a global console instance writing to stdout.
+            enable_link_path: Enable terminal link of path column to file.
+            highlighter: Highlighter to style log messages, or None to use ReprHighlighter.
+            keywords: List of words to highlight instead of ``RichHandler.KEYWORDS``.
+            locals_max_length: Maximum length of containers before abbreviating, or None for no abbreviation.
+            locals_max_string: Maximum length of string before truncating, or None to disable.
+            log_render_kls: Custom log rendering class.
+                If not provided, will use the one provided by rich.
+            log_time_format: If ``log_time`` is enabled, either string for strftime or callable that formats the time.
+            markup: Enable console markup in log messages.
+            name: Name of the handler. Can be used to check for existence.
+            omit_repeated_times: Omit repetition of the same time.
+            rich_tracebacks: Enable rich tracebacks with syntax highlighting and formatting.
+            show_level: Show a column for the level.
+            show_path: Show the path to the original log call.
+            show_time: Show a column for the time.
+            tracebacks_extra_lines: Additional lines of code to render tracebacks, or None for full width.
+            tracebacks_show_locals: Enable display of locals in tracebacks.
+            tracebacks_suppress: Optional sequence of modules or paths to exclude from traceback.
+            tracebacks_theme: Override pygments theme used in traceback.
+            tracebacks_width: Number of characters used to render tracebacks, or None for full width.
+            tracebacks_word_wrap: Enable word wrapping of long tracebacks lines.
+            **kwargs: Additional options added to :class:`~rich.logging.RichHandler`
+                that are not explicitly listed here. This is to provide support for future
+                releases without requiring a new release here to support it.
+
+        """
+        super().__init__(
+            level,
+            console,
+            enable_link_path=enable_link_path,
+            highlighter=highlighter,
+            keywords=keywords,
+            locals_max_length=locals_max_length,
+            locals_max_string=locals_max_string,
+            log_time_format=log_time_format,
+            markup=markup,
+            omit_repeated_times=omit_repeated_times,
+            rich_tracebacks=rich_tracebacks,
+            show_level=show_level,
+            show_path=show_path,
+            show_time=show_time,
+            tracebacks_extra_lines=tracebacks_extra_lines,
+            tracebacks_show_locals=tracebacks_show_locals,
+            tracebacks_suppress=tracebacks_suppress,
+            tracebacks_theme=tracebacks_theme,
+            tracebacks_width=tracebacks_width,
+            tracebacks_word_wrap=tracebacks_word_wrap,
+            **kwargs,
+        )
+        if log_render_kls is not None:
+            self._log_render = log_render_kls(
+                omit_repeated_times=omit_repeated_times,
+                show_level=show_level,
+                show_path=show_path,
+                show_time=show_time,
+            )
+        self._name = name
 
     def _determine_should_escape(self, record: logging.LogRecord) -> bool:
         """Determine if a log message should be passed to :function:`~rich.markup.escape`.

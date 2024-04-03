@@ -42,7 +42,7 @@ class TestPrefixAdaptor:
         """Test process."""
         assert PrefixAdaptor("test_process", LOGGER, extra={"foo": "bar"}).process(
             "msg", {"kwargs": "value"}
-        ) == ("test_process: msg", {"extra": {"foo": "bar"}, "kwargs": "value"})
+        ) == ("test_process: msg", {"extra": {"foo": "bar"}, "kwargs": "value", "stacklevel": 2})
 
     def test_success(self, log: Mock) -> None:
         """Test success."""

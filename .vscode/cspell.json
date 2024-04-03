@@ -1,36 +1,7 @@
 {
     "allowCompoundWords": true,
-    "dictionaries": [
-        "python",
-        "softwareTerms"
-    ],
-    "ignorePaths": [
-        "**/.git",
-        "**/.gitignore",
-        "**/package-lock.json",
-        "**/package.json",
-        "**/poetry.lock",
-        ".vscode/extensions.json",
-        ".vscode/settings.json"
-    ],
     "import": [
         "@itprokyle/cspell-dict/cspell-ext.json"
-    ],
-    "language": "en",
-    "languageSettings": [
-        {
-            "allowCompoundWords": true,
-            "dictionaries": [
-                "python"
-            ],
-            "languageId": "toml"
-        },
-        {
-            "dictionaries": [
-                "bash"
-            ],
-            "languageId": "*"
-        }
     ],
     "maxNumberOfProblems": 100,
     "version": "0.2",

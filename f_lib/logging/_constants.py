@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 DEFAULT_LOG_FORMAT = "%(message)s"
 """Default log format."""
 
-DEFAULT_LOG_FORMAT_VERBOSE = "%(name)s:%(message)s"
+DEFAULT_LOG_FORMAT_VERBOSE = "%(name)s: %(message)s"
 """Default log format when a verbose log level is used."""
 
 DEFAULT_STYLES: Mapping[str, Style] = {

@@ -17,7 +17,6 @@
 .eggs/
 .hypothesis/
 .installed.cfg
-.ipynb_checkpoints
 .mypy_cache/
 .pytest_cache/
 .python-version

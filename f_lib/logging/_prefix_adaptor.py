@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 
 class PrefixAdaptor(logging.LoggerAdapter["Logger | PrefixAdaptor"]):
-    """LoggerAdapter that adds prefixes to messages.
+    """:class:`logging.LoggerAdapter` that adds prefixes to messages.
 
     .. rubric:: Example
     .. code-block:: python
@@ -50,7 +50,7 @@ class PrefixAdaptor(logging.LoggerAdapter["Logger | PrefixAdaptor"]):
     def notice(
         self,
         msg: Exception | str,
-        *,
+        *args: object,
         exc_info: bool = False,
         extra: Mapping[str, object] | None = None,
         **kwargs: Any,  # noqa: ANN401
@@ -59,15 +59,16 @@ class PrefixAdaptor(logging.LoggerAdapter["Logger | PrefixAdaptor"]):
 
         Args:
             msg: String template or exception to use for the log record.
+            *args: Replacement values for the string template.
             exc_info: Include exception traceback in the log record.
             extra: Dictionary to populated additional information in the log record.
             **kwargs: Arbitrary keyword arguments
 
         """
-        self.log(LogLevel.NOTICE, msg, exc_info=exc_info, extra=extra, **kwargs)
+        self.log(LogLevel.NOTICE, msg, *args, exc_info=exc_info, extra=extra, **kwargs)
 
     def process(
-        self, msg: object, kwargs: MutableMapping[str, object]
+        self, msg: object, kwargs: MutableMapping[str, Any]
     ) -> tuple[str, MutableMapping[str, object]]:
         """Process the message to append the prefix.
 
@@ -76,13 +77,14 @@ class PrefixAdaptor(logging.LoggerAdapter["Logger | PrefixAdaptor"]):
             kwargs: Keyword args for the message.
 
         """
+        kwargs["stacklevel"] = kwargs.get("stacklevel", 1) + 1
         kwargs["extra"] = self.extra
         return self.prefix_template.format(prefix=self.prefix, msg=msg), kwargs
 
     def success(
         self,
         msg: Exception | str,
-        *,
+        *args: object,
         exc_info: bool = False,
         extra: Mapping[str, object] | None = None,
         **kwargs: Any,  # noqa: ANN401
@@ -91,17 +93,18 @@ class PrefixAdaptor(logging.LoggerAdapter["Logger | PrefixAdaptor"]):
 
         Args:
             msg: String template or exception to use for the log record.
+            *args: Replacement values for the string template.
             exc_info: Include exception traceback in the log record.
             extra: Dictionary to populated additional information in the log record.
             **kwargs: Arbitrary keyword arguments
 
         """
-        self.log(LogLevel.SUCCESS, msg, exc_info=exc_info, extra=extra, **kwargs)
+        self.log(LogLevel.SUCCESS, msg, *args, exc_info=exc_info, extra=extra, **kwargs)
 
     def verbose(
         self,
         msg: Exception | str,
-        *,
+        *args: object,
         exc_info: bool = False,
         extra: Mapping[str, object] | None = None,
         **kwargs: Any,  # noqa: ANN401
@@ -110,9 +113,10 @@ class PrefixAdaptor(logging.LoggerAdapter["Logger | PrefixAdaptor"]):
 
         Args:
             msg: String template or exception to use for the log record.
+            *args: Replacement values for the string template.
             exc_info: Include exception traceback in the log record.
             extra: Dictionary to populated additional information in the log record.
             **kwargs: Arbitrary keyword arguments
 
         """
-        self.log(LogLevel.VERBOSE, msg, exc_info=exc_info, extra=extra, **kwargs)
+        self.log(LogLevel.VERBOSE, msg, *args, exc_info=exc_info, extra=extra, **kwargs)
