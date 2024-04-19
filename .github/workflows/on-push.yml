@@ -46,7 +46,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
       - uses: ITProKyle/action-setup-python@v0.7.0
