@@ -5,6 +5,7 @@ https://www.sphinx-doc.org/en/master/usage/configuration.html
 """
 
 import os
+import tomllib
 from datetime import date
 from pathlib import Path
 
@@ -13,10 +14,13 @@ from pkg_resources import get_distribution
 ROOT_DIR = Path(__file__).parent.parent.parent
 DOC_SRC = ROOT_DIR / "docs" / "source"
 
+PYPROJECT_TOML = tomllib.loads((ROOT_DIR / "pyproject.toml").read_text())
+"""Read in the contents of ``../../pyproject.toml`` to reuse it's values."""
+
 # -- Project information -----------------------------------------------------
-project = "f-lib"
+project = PYPROJECT_TOML["tool"]["poetry"]["name"]
 copyright = f"{date.today().year}, Kyle Finley"  # noqa: A001, DTZ011
-author = "Kyle Finley"
+author = PYPROJECT_TOML["tool"]["poetry"]["authors"][0]
 version = get_distribution(project).version
 release = ".".join(version.split(".")[:2])  # short X.Y version
 
@@ -29,6 +33,7 @@ default_role = None
 exclude_patterns = []
 extensions = [
     "sphinx.ext.autodoc",
+    "sphinx.ext.autosectionlabel",
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
     "sphinx.ext.todo",
@@ -39,10 +44,6 @@ extensions = [
     "sphinxcontrib.jquery",
 ]
 highlight_language = "default"
-intersphinx_mapping = {
-    "python": ("https://docs.python.org/3", None),  # link to python docs
-    "rich": ("https://rich.readthedocs.io/en/stable", None),  # link to rich docs
-}
 language = "en"
 master_doc = "index"
 needs_extensions = {}
@@ -62,6 +63,9 @@ html_css_files = [  # files relative to html_static_path
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/solid.min.css",
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css",
 ]
+html_favicon = None
+html_js_files = ["js/custom.js"]
+html_logo = None
 html_short_title = f"{project} v{release}"
 html_show_copyright = True
 html_show_sphinx = False
@@ -98,6 +102,20 @@ autodoc_type_aliases = {}
 autodoc_typehints = "signature"
 
 
+# -- Options for sphinx.ext.autosectionlabel ---------------------------------
+# https://www.sphinx-doc.org/en/master/usage/extensions/autosectionlabel.html
+autosectionlabel_prefix_document = True
+autosectionlabel_maxdepth = None
+
+
+# -- Options of sphinx.ext.intersphinx ------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/3", None),  # link to python docs
+    "rich": ("https://rich.readthedocs.io/en/stable", None),  # link to rich docs
+}
+
+
 # -- Options for sphinx.ext.napoleon  ----------------------------------------
 # https://www.sphinx-doc.org/en/3.x/usage/extensions/napoleon.html#configuration
 napoleon_attr_annotations = True
@@ -119,6 +137,14 @@ napoleon_use_rtype = True
 todo_include_todos = True
 
 
+# -- Options for sphinx_copybutton ---------------------------------
+# https://sphinx-copybutton.readthedocs.io/en/latest/index.html
+copybutton_prompt_text = r">>> |\.\.\. |\$ |In \[\d*\]: | {2,5}\.\.\.: | {5,8}: "
+copybutton_prompt_is_regexp = True
+copybutton_remove_prompts = True
+copybutton_line_continuation_character = "\\"
+
+
 # -- Options for sphinxcontrib.apidoc  ----------------------------------------
 apidoc_excluded_paths = []
 apidoc_extra_args = [f"--templatedir={DOC_SRC / '_templates' / 'apidocs'}"]
@@ -127,11 +153,3 @@ apidoc_module_first = True
 apidoc_output_dir = "apidocs"
 apidoc_separate_modules = True
 apidoc_toc_file = "index"
-
-
-# -- Options for sphinx_copybutton ---------------------------------
-# https://sphinx-copybutton.readthedocs.io/en/latest/index.html
-copybutton_prompt_text = r">>> |\.\.\. |\$ |In \[\d*\]: | {2,5}\.\.\.: | {5,8}: "
-copybutton_prompt_is_regexp = True
-copybutton_remove_prompts = True
-copybutton_line_continuation_character = "\\"

@@ -3,12 +3,16 @@ name = "f-lib"
 version = "0.0.0"
 authors = ["Kyle Finley <kyle@finley.sh>"]
 classifiers = [
+  # https://pypi.org/classifiers/
+  "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
   "Natural Language :: English",
   "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Topic :: Utilities",
+  "Typing :: Typed",
 ]
 description = "Python library created by Kyle Finley, for Kyle Finley."
 documentation = "https://f-lib.readthedocs.io"
@@ -217,5 +221,5 @@ overrides."tool.poetry".first = ["name", "version"]
 overrides."tool.poetry.dependencies".first = ["python"]
 
 [build-system]
-build-backend = "poetry.core.masonry.api"
-requires = ["poetry-core"]
+build-backend = "poetry_dynamic_versioning.backend"
+requires = ["poetry-core>=1.0.7", "poetry-dynamic-versioning>=1.2.0,<2.0.0"]

@@ -1,7 +1,6 @@
 """Finley library."""
 
 import logging as __logging
-from importlib.metadata import PackageNotFoundError, version
 
 from . import aws, constants, logging, mixins, utils
 from ._environment import Environment
@@ -11,11 +10,19 @@ from ._system_info import SystemInfo, UnknownPlatformArchitectureError
 # when creating loggers, always use instances of `f_lib.logging.Logger`
 __logging.setLoggerClass(logging.Logger)
 
-try:
-    __version__ = version(__name__)
-except PackageNotFoundError:  # cov: ignore
-    # package is not installed
-    __version__ = "0.0.0"
+__version__: str = "0.0.0"
+"""Version of the Python package presented as a :class:`string`.
+
+Dynamically set upon release by [poetry-dynamic-versioning](https://github.com/mtkennerly/poetry-dynamic-versioning).
+
+"""
+
+__version_tuple__: tuple[int, int, int] | tuple[int, int, int, str] = (0, 0, 0)
+"""Version of the Python package presented as a :class:`tuple`.
+
+Dynamically set upon release by [poetry-dynamic-versioning](https://github.com/mtkennerly/poetry-dynamic-versioning).
+
+"""
 
 
 __all__ = [
