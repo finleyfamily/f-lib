@@ -26,13 +26,13 @@ repos:
         args: [--autofix, --indent, '4']
         exclude: |
           (?x)^(
-            (.*)?(cdk|package|tsconfig|tslint).json
+            (.*)?(cdk|package|tsconfig|tslint)\.json
           )$
       - id: pretty-format-json
         args: [--autofix, --indent, '2']
         files: |
           (?x)^(
-            (.*)?(cdk|package|tsconfig|tslint).json
+            (.*)?(cdk|package|tsconfig|tslint)\.json
           )$
       - id: trailing-whitespace
       - id: mixed-line-ending
