@@ -34,7 +34,7 @@ pydantic-settings = "^2.2.1"  # TODO (kyle): update once released https://github
 rich = "^13.7.1"
 
 [tool.poetry.group.dev.dependencies]
-pre-commit = "^3.7.0"
+pre-commit = "^3.7.1"
 
 [tool.poetry.group.docs.dependencies]
 doc8 = "^1.1.1"
