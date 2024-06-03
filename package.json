@@ -1,7 +1,7 @@
 {
   "devDependencies": {
     "@itprokyle/cspell-dict": "^1.2.3",
-    "cspell": "^8.8.3",
+    "cspell": "^8.8.4",
     "pyright": "^1.1.365"
   },
   "name": "f-lib",
