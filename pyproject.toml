@@ -193,6 +193,7 @@ select = ["ALL"]
   "PT004",  # Fixture does not return anything, add leading underscore
   "S101",  # Use of `assert` detected - this is fine here
   "S108",  # Probable insecure usage of temporary file or directory
+  "S301",  # `pickle` and modules that wrap it can be unsafe when used to deserialize untrusted data
   "S604",  # Function call with `shell=True` parameter identified - this is fine here
   "SLF001",  # Private member accessed - fine in tests
 ]
