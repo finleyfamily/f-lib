@@ -34,9 +34,7 @@ class CliInterfaceMixin:
     @classmethod
     def found_in_path(cls) -> bool:
         """Determine if executable is found in $PATH."""
-        if shutil.which(cls.EXECUTABLE):
-            return True
-        return False
+        return bool(shutil.which(cls.EXECUTABLE))
 
     @classmethod
     def generate_command(
@@ -125,21 +123,21 @@ class CliInterfaceMixin:
         cmd_str = command if isinstance(command, str) else convert_list_to_shell_str(command)
         LOGGER.debug("running command: %s", cmd_str)
         if suppress_output:
-            return subprocess.check_output(
+            return subprocess.check_output(  # noqa: S602
                 cmd_str,
                 cwd=self.cwd,
                 env=env or self.env.vars,
-                shell=True,  # noqa: S602
+                shell=True,
                 stderr=subprocess.STDOUT,  # forward stderr to stdout so it is captured
                 text=True,
             )
         if capture_output:
             return self._run_command_capture_output(cmd_str, env=env or self.env.vars)
-        subprocess.check_call(
+        subprocess.check_call(  # noqa: S602
             cmd_str,
             cwd=self.cwd,
             env=env or self.env.vars,
-            shell=True,  # noqa: S602
+            shell=True,
         )
         return None
 
@@ -156,12 +154,12 @@ class CliInterfaceMixin:
 
         """
         output_list: list[str] = []  # accumulate output from the buffer
-        with subprocess.Popen(
+        with subprocess.Popen(  # noqa: S602
             command,
             bufsize=1,
             cwd=self.cwd,
             env=env,
-            shell=True,  # noqa: S602
+            shell=True,
             stderr=subprocess.STDOUT,
             stdout=subprocess.PIPE,
             universal_newlines=True,
