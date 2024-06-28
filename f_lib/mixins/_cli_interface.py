@@ -67,6 +67,18 @@ class CliInterfaceMixin:
         *,
         capture_output: Literal[True],
         env: dict[str, str] | None = ...,
+        timeout: float | None = ...,
+    ) -> str: ...
+
+    @overload
+    def _run_command(
+        self,
+        command: Iterable[str] | str,
+        *,
+        capture_output: Literal[True],
+        env: dict[str, str] | None = ...,
+        suppress_output: Literal[False],
+        timeout: float | None = ...,
     ) -> str: ...
 
     @overload
@@ -77,6 +89,7 @@ class CliInterfaceMixin:
         capture_output: bool = ...,
         env: dict[str, str] | None = ...,
         suppress_output: Literal[True] = ...,
+        timeout: float | None = ...,
     ) -> str: ...
 
     @overload
@@ -86,6 +99,7 @@ class CliInterfaceMixin:
         *,
         env: dict[str, str] | None = ...,
         suppress_output: Literal[False],
+        timeout: float | None = ...,
     ) -> None: ...
 
     @overload
@@ -96,6 +110,7 @@ class CliInterfaceMixin:
         capture_output: bool = ...,
         env: dict[str, str] | None = ...,
         suppress_output: bool = ...,
+        timeout: float | None = ...,
     ) -> str | None: ...
 
     def _run_command(
@@ -105,6 +120,7 @@ class CliInterfaceMixin:
         capture_output: bool = False,
         env: dict[str, str] | None = None,
         suppress_output: bool = True,
+        timeout: float | None = None,
     ) -> str | None:
         """Run command.
 
@@ -118,6 +134,8 @@ class CliInterfaceMixin:
             suppress_output: If ``True``, the output of the subprocess written
                 to ``sys.stdout`` and ``sys.stderr`` will be captured and
                 returned as a string instead of being being written directly.
+            timeout: Number of seconds to wait before terminating the child process.
+                Internally passed on to :meth:`~subprocess.Popen.communicate`.
 
         """
         cmd_str = command if isinstance(command, str) else convert_list_to_shell_str(command)
@@ -130,6 +148,7 @@ class CliInterfaceMixin:
                 shell=True,
                 stderr=subprocess.STDOUT,  # forward stderr to stdout so it is captured
                 text=True,
+                timeout=timeout,
             )
         if capture_output:
             return self._run_command_capture_output(cmd_str, env=env or self.env.vars)
@@ -138,11 +157,16 @@ class CliInterfaceMixin:
             cwd=self.cwd,
             env=env or self.env.vars,
             shell=True,
+            timeout=timeout,
         )
         return None
 
     def _run_command_capture_output(
-        self, command: str, *, env: dict[str, str] | None = None
+        self,
+        command: str,
+        *,
+        env: dict[str, str] | None = None,
+        timeout: float | None = None,
     ) -> str:
         """Run command and capture output while still allowing it to be printed.
 
@@ -151,6 +175,7 @@ class CliInterfaceMixin:
         Args:
             command: Command to pass to shell to execute.
             env: Environment variables.
+            timeout: Number of seconds to wait before terminating the child process.
 
         """
         output_list: list[str] = []  # accumulate output from the buffer
@@ -170,7 +195,7 @@ class CliInterfaceMixin:
                     output_list.append(line)
             # strip any ANSI escape sequences from output
             output = ANSI_ESCAPE_PATTERN.sub("", "".join(output_list))
-            if proc.wait() != 0:
+            if proc.wait(timeout=timeout) != 0:
                 raise subprocess.CalledProcessError(
                     returncode=proc.returncode,
                     cmd=command,

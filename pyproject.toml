@@ -134,6 +134,7 @@ reportMissingTypeStubs = "none"
 reportPrivateUsage = "none"
 reportUnknownMemberType = "none"
 reportUnnecessaryIsInstance = "warning"
+reportUnnecessaryTypeIgnoreComment = "warning"
 reportUnusedImport = "none"
 reportUnusedVariable = "none"
 strictParameterNoneValue = false
