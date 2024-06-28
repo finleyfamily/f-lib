@@ -3,7 +3,7 @@ autolabeler:  # cspell:ignore autolabeler
   - label: bug
     branch: [/^(bug|bugfix|fix|hotfix)\/.*/]
   - label: changelog:skip
-    branch: [/^(dependabot)\/.*/]
+    branch: [/^(dependabot)\/.*/, /^pre-commit-ci-update-config/]
   - label: dependencies
     branch: [/^(depend|dependabot|renovate)\/.*/]
   - label: documentation
