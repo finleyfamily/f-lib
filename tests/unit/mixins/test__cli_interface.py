@@ -49,6 +49,7 @@ class TestCliInterfaceMixin:
             shell=True,
             stderr=subprocess.STDOUT,
             text=True,
+            timeout=None,
         )
 
     def test__run_command_capture_output(
@@ -103,6 +104,7 @@ class TestCliInterfaceMixin:
             cwd=tmp_path,
             env=env,
             shell=True,
+            timeout=None,
         )
 
     @pytest.mark.parametrize("return_value", [False, True])
