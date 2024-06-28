@@ -24,7 +24,7 @@ packages = [
   {include = "f_lib"},
 ]
 readme = "README.md"
-repository = "https://github.com/ITProKyle/f-lib"
+repository = "https://github.com/finleyfamily/f-lib"
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -63,9 +63,9 @@ name = "PyPI"
 priority = "primary"
 
 [tool.poetry.urls]
-bugs = "https://github.com/ITProKyle/f-lib/issues"
-changelog = "https://github.com/ITProKyle/f-lib/releases"
-issues = "https://github.com/ITProKyle/f-lib/issues"
+bugs = "https://github.com/finleyfamily/f-lib/issues"
+changelog = "https://github.com/finleyfamily/f-lib/releases"
+issues = "https://github.com/finleyfamily/f-lib/issues"
 
 [tool.black]
 force-exclude = '''
