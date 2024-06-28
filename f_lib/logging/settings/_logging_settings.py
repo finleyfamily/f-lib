@@ -4,11 +4,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, PyprojectTomlConfigSettingsSource
 from pydantic_settings import SettingsConfigDict as BaseSettingsConfigDict
 
 from ._console_logging_settings import ConsoleLoggingSettings
-from ._sources import PyprojectTomlConfigSettingsSource
 
 if TYPE_CHECKING:
     from pydantic_settings import PydanticBaseSettingsSource
@@ -40,7 +39,7 @@ class LoggingSettings(BaseSettings):
         env_ignore_empty=True,
         env_nested_delimiter="__",
         env_prefix="F_LOGGING_",
-        toml_table_path=("tool", "f", "logging"),
+        pyproject_toml_table_header=("tool", "f", "logging"),
     )
 
     console: ConsoleLoggingSettings = ConsoleLoggingSettings()
