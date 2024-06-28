@@ -7,6 +7,8 @@ import shlex
 import subprocess
 from typing import TYPE_CHECKING, Any, cast
 
+from ._file_hash import FileHash
+
 if TYPE_CHECKING:
     import pathlib
     from collections.abc import Iterable
@@ -42,3 +44,11 @@ def convert_list_to_shell_str(split_command: Iterable[str]) -> str:
 def convert_to_cli_flag(arg_name: str, *, prefix: str = "--") -> str:
     """Convert string kwarg name into a CLI flag."""
     return f"{prefix}{arg_name.replace('_', '-')}"
+
+
+__all__ = [
+    "FileHash",
+    "convert_kwargs_to_shell_list",
+    "convert_list_to_shell_str",
+    "convert_to_cli_flag",
+]
