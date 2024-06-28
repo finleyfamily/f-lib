@@ -17,8 +17,7 @@ jobs:
       - uses: ITProKyle/action-setup-python@v1.0.0
         with:
           poetry-install: false
-      - name: Install Poetry Plugins
-        run: poetry self add "poetry-dynamic-versioning[plugin]"
+          poetry-plugins: poetry-dynamic-versioning
       - name: Run Build
         run: make build
       - name: Upload Distribution Artifact
@@ -44,8 +43,7 @@ jobs:
       - uses: ITProKyle/action-setup-python@v1.0.0
         with:
           poetry-install: false
-      - name: Install Poetry Plugins
-        run: poetry self add "poetry-dynamic-versioning[plugin]"
+          poetry-plugins: poetry-dynamic-versioning
       - name: Publish Distribution 📦 to PyPI
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ secrets.pypi_password }}
