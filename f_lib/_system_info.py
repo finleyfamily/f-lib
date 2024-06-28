@@ -70,9 +70,7 @@ class SystemInfo:
     @cached_property
     def is_frozen(self) -> bool:
         """Whether or not app is running from a frozen package."""
-        if getattr(sys, "frozen", False):
-            return True
-        return False
+        return bool(getattr(sys, "frozen", False))
 
     @cached_property
     def is_x86(self) -> bool:
