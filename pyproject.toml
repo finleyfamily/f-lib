@@ -29,8 +29,8 @@ repository = "https://github.com/ITProKyle/f-lib"
 [tool.poetry.dependencies]
 python = "^3.11"
 platformdirs = "^4.1.0"
-pydantic = "^2.6.4"
-pydantic-settings = "^2.2.1"  # TODO (kyle): update once released https://github.com/pydantic/pydantic-settings/pull/255
+pydantic = "^2.7.4"
+pydantic-settings = "^2.3.4"
 rich = "^13.7.1"
 
 [tool.poetry.group.dev.dependencies]
