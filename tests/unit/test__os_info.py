@@ -28,6 +28,26 @@ def clear_os_info() -> None:
 class TestOsInfo:
     """Test OsInfo."""
 
+    def test___bool__(self) -> None:
+        """Test __bool__."""
+        assert OsInfo()
+
+    def test___eq__(self) -> None:
+        """Test __eq__."""
+        assert OsInfo() == OsInfo()
+
+    def test___eq__false(self) -> None:
+        """Test __eq__ is ``False``."""
+        assert not OsInfo() == "foo"  # noqa: SIM201
+
+    def test___nq__(self) -> None:
+        """Test __ne__."""
+        assert OsInfo() != "foo"
+
+    def test___ne__false(self) -> None:
+        """Test __ne__ is ``False``."""
+        assert not OsInfo() != OsInfo()  # noqa: SIM202
+
     def test___platform_dirs_darwin(self, mocker: MockerFixture, platform_darwin: None) -> None:
         """Test _platform_dirs macOS."""
         mock_unix = mocker.patch(f"{MODULE}.Unix", return_value="success")

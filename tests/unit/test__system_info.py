@@ -25,6 +25,26 @@ def clear_system_info() -> None:
 class TestSystemInfo:
     """Test SystemInfo."""
 
+    def test___bool__(self) -> None:
+        """Test __bool__."""
+        assert SystemInfo()
+
+    def test___eq__(self) -> None:
+        """Test __eq__."""
+        assert SystemInfo() == SystemInfo()
+
+    def test___eq___false(self) -> None:
+        """Test __eq__ is ``False``."""
+        assert not SystemInfo() == OsInfo()  # noqa: SIM201
+
+    def test___nq__(self) -> None:
+        """Test __ne__."""
+        assert SystemInfo() != OsInfo()
+
+    def test___ne___false(self) -> None:
+        """Test __ne__ is ``False``."""
+        assert not SystemInfo() != SystemInfo()  # noqa: SIM202
+
     @pytest.mark.parametrize(
         ("expected", "is_64bit", "is_arm", "is_x86"),
         [
