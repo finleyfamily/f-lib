@@ -107,3 +107,17 @@ class Environment:
         """
         self.vars.update(env_vars)
         LOGGER.debug("updated environment variables: %s", json.dumps(env_vars))
+
+    def __bool__(self) -> bool:
+        """Evaluation of instances as a bool."""
+        return bool(self.vars)
+
+    def __eq__(self, other: object) -> bool:
+        """Compare self with another object for equality."""
+        if isinstance(other, self.__class__):
+            return bool(self.root_dir == other.root_dir and self.vars == other.vars)
+        return NotImplemented
+
+    def __ne__(self, other: object) -> bool:
+        """Compare self with another object for inequality."""
+        return not self == other

@@ -90,3 +90,15 @@ class SystemInfo:
 
         """
         cls.__instance = None
+
+    def __bool__(self) -> bool:
+        """Evaluation of instances as a bool."""
+        return True
+
+    def __eq__(self, other: object) -> bool:
+        """Compare self with another object for equality."""
+        return id(self) == id(other)
+
+    def __ne__(self, other: object) -> bool:
+        """Compare self with another object for inequality."""
+        return not self == other

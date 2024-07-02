@@ -16,6 +16,38 @@ MODULE = "f_lib._environment"
 class TestEnvironment:
     """Test Environment."""
 
+    def test___bool__(self, tmp_path: Path) -> None:
+        """Test __bool__."""
+        assert Environment(environ={"key": "value"}, root_dir=tmp_path)
+
+    def test___bool___false(self, tmp_path: Path) -> None:
+        """Test __bool__ is ``False``."""
+        assert not Environment(environ={}, root_dir=tmp_path)
+
+    def test___eq__(self, tmp_path: Path) -> None:
+        """Test __eq__."""
+        assert Environment(environ={"key": "value"}, root_dir=tmp_path) == Environment(
+            environ={"key": "value"}, root_dir=tmp_path
+        )
+
+    def test___eq___false_environ(self, tmp_path: Path) -> None:
+        """Test __eq__ is ``False``."""
+        assert not Environment(  # noqa: SIM201
+            environ={"key": "value"}, root_dir=tmp_path
+        ) == Environment(environ={"foo": "bar"}, root_dir=tmp_path)
+
+    def test___eq___false_root_dir(self, tmp_path: Path) -> None:
+        """Test __eq__ is ``False``."""
+        assert not Environment(  # noqa: SIM201
+            environ={"key": "value"}, root_dir=tmp_path
+        ) == Environment(environ={"key": "value"}, root_dir=tmp_path / "child")
+
+    def test___eq___not_implemented(self, tmp_path: Path) -> None:
+        """Test __eq__ ``NotImplemented``."""
+        assert not Environment(environ={"key": "value"}, root_dir=tmp_path) == {  # noqa: SIM201
+            "key": "value"
+        }
+
     def test___init__(self, cd_tmp_path: Path) -> None:
         """Test attributes set by init."""
         new_dir = cd_tmp_path / "new_dir"
@@ -37,6 +69,28 @@ class TestEnvironment:
     def test___init___emptry_environ(self) -> None:
         """Test attributes set by init."""
         assert Environment(environ={}).vars == {}
+
+    def test___ne___environ(self, tmp_path: Path) -> None:
+        """Test __ne__."""
+        assert Environment(environ={"key": "value"}, root_dir=tmp_path) != Environment(
+            environ={"foo": "bar"}, root_dir=tmp_path
+        )
+
+    def test___ne___false(self, tmp_path: Path) -> None:
+        """Test __ne__ is ``False``."""
+        assert not Environment(  # noqa: SIM202
+            environ={"key": "value"}, root_dir=tmp_path
+        ) != Environment(environ={"key": "value"}, root_dir=tmp_path)
+
+    def test___ne___root_dir(self, tmp_path: Path) -> None:
+        """Test __ne__ is."""
+        assert Environment(environ={"key": "value"}, root_dir=tmp_path) != Environment(
+            environ={"key": "value"}, root_dir=tmp_path / "child"
+        )
+
+    def test___ne___not_implemented(self, tmp_path: Path) -> None:
+        """Test __ne__ ``NotImplemented``."""
+        assert Environment(environ={"key": "value"}, root_dir=tmp_path) != {"key": "value"}
 
     def test_ci_deleter(self) -> None:
         """Test ``@ci.deleter``."""
@@ -65,7 +119,7 @@ class TestEnvironment:
         obj = Environment(root_dir=tmp_path)
         obj_copy = obj.copy()
 
-        assert obj_copy != obj
+        assert id(obj_copy) != id(obj)
         assert obj_copy.root_dir == obj.root_dir
         assert obj_copy.vars == obj.vars
 
