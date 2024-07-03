@@ -89,7 +89,7 @@ class TestSystemInfo:
         assert SystemInfo().is_64bit is expected
 
     @pytest.mark.parametrize(
-        ("expected", "machine"), [(False, "leg"), (True, "arm"), (True, "ARM")]
+        ("expected", "machine"), [(False, "leg"), (True, "arm"), (True, "ARM"), (True, "aarch")]
     )
     def test_is_arm(self, expected: bool, machine: str, mocker: MockerFixture) -> None:
         """Test is_arm."""

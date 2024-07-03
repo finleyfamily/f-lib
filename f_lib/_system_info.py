@@ -65,7 +65,7 @@ class SystemInfo:
     @cached_property
     def is_arm(self) -> bool:
         """Whether the system is arm based."""
-        return "arm" in platform.machine().lower()
+        return platform.machine().lower().startswith(("arm", "aarch"))
 
     @cached_property
     def is_frozen(self) -> bool:
