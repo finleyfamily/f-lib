@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  release:
+    types:
+      - published
+
+env:
+  DEFAULT_PYTHON_VERSION: 3.12
+
+jobs:
+  python-build:
+    uses: finleyfamily/workflows/.github/workflows/python.build.yml@master
+  publish-test-pypi:
+    name: 🚀 Publish 📦 To PyPI
+    if: github.event_name == 'push' && github.ref_name == 'master'
+    needs:
+      - python-build
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/sphinxcontrib.external-links
+    permissions:
+      id-token: write
+    steps:
+      - name: ⤵️ Download distribution artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: pypi-dist
+          path: dist
+      - name: 🚀 Publish 📦 to PyPI
+        uses: pypa/gh-action-pypi-publish@v1.9.0
