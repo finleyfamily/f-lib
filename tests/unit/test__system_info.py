@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 MODULE = "f_lib._system_info"
 
 
-@pytest.fixture()
+@pytest.fixture
 def clear_system_info() -> None:
     """Clear OsInfo singleton."""
     SystemInfo.clear_singleton()

@@ -15,13 +15,13 @@ if TYPE_CHECKING:
     from pytest_mock import MockerFixture
 
 
-@pytest.fixture()
+@pytest.fixture
 def is_enabled_for(mocker: MockerFixture) -> Mock:
     """Mock Logger.isEnabledFor with ``return_value=True``."""
     return mocker.patch.object(Logger, "isEnabledFor", return_value=True)
 
 
-@pytest.fixture()
+@pytest.fixture
 def log(mocker: MockerFixture) -> Mock:
     """Mock Logger._log."""
     return mocker.patch.object(Logger, "_log")

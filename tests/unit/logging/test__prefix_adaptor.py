@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 LOGGER = Logger(__name__)
 
 
-@pytest.fixture()
+@pytest.fixture
 def log(mocker: MockerFixture) -> Mock:
     """Mock PrefixAdaptor.log."""
     return mocker.patch.object(PrefixAdaptor, "log")
