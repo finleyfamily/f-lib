@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 TEST_DIR = Path(__file__).parent
 
 
-@pytest.fixture()
+@pytest.fixture
 def cd_tmp_path(tmp_path: Path) -> Iterator[Path]:
     """Change directory to a temporary path.
 

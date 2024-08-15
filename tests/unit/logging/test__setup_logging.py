@@ -36,7 +36,7 @@ def handler_kls(mocker: MockerFixture) -> Mock:
     return mocker.patch(f"{MODULE}.ConsoleHandler", return_value=logging.StreamHandler())
 
 
-@pytest.fixture()
+@pytest.fixture
 def logger() -> logging.Logger:
     """Logger."""
     return logging.getLogger(
@@ -44,7 +44,7 @@ def logger() -> logging.Logger:
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def optionally_replace_handler(mocker: MockerFixture, logger: logging.Logger) -> Mock:
     """Patch optionally_replace_handler."""
     return mocker.patch(f"{MODULE}.optionally_replace_handler", return_value=(None, logger))

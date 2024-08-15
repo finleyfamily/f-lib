@@ -14,25 +14,25 @@ if TYPE_CHECKING:
     from pytest_mock import MockerFixture
 
 
-@pytest.fixture()
+@pytest.fixture
 def environment(tmp_path: Path) -> Environment:
     """Create a deploy environment that can be used for testing."""
     return Environment(root_dir=tmp_path)
 
 
-@pytest.fixture()
+@pytest.fixture
 def platform_darwin(mocker: MockerFixture) -> None:
     """Patch platform.system to always return "Darwin"."""
     mocker.patch("platform.system", return_value="Darwin")
 
 
-@pytest.fixture()
+@pytest.fixture
 def platform_linux(mocker: MockerFixture) -> None:
     """Patch platform.system to always return "Linux"."""
     mocker.patch("platform.system", return_value="Linux")
 
 
-@pytest.fixture()
+@pytest.fixture
 def platform_windows(mocker: MockerFixture) -> None:
     """Patch platform.system to always return "Windows"."""
     mocker.patch("platform.system", return_value="Windows")

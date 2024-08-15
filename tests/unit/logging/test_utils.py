@@ -25,13 +25,13 @@ if TYPE_CHECKING:
 MODULE = "f_lib.logging.utils"
 
 
-@pytest.fixture()
+@pytest.fixture
 def root_logger() -> logging.Logger:
     """Root logger."""
     return logging.getLogger()
 
 
-@pytest.fixture()
+@pytest.fixture
 def parent_logger(root_logger: logging.Logger) -> logging.Logger:
     """Parent logger."""
     return root_logger.getChild(
@@ -39,13 +39,13 @@ def parent_logger(root_logger: logging.Logger) -> logging.Logger:
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def child_logger(parent_logger: logging.Logger) -> logging.Logger:
     """Child logger."""
     return parent_logger.getChild("child")
 
 
-@pytest.fixture()
+@pytest.fixture
 def grandchild_logger(child_logger: logging.Logger) -> logging.Logger:
     """Grandchild logger."""
     return child_logger.getChild("grand")
