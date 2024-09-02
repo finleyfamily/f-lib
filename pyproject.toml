@@ -37,7 +37,7 @@ rich = "^13.7.1"
 pre-commit = "^3.8.0"
 
 [tool.poetry.group.docs.dependencies]
-doc8 = "^1.1.1"
+doc8 = "^1.1.2"
 furo = "^2024.8.6"
 sphinx = "^8.0.2"
 sphinx-autobuild = "^2024.4.16"
