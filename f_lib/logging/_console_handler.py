@@ -42,7 +42,9 @@ class ConsoleHandler(RichHandler):
         show_level: bool = True,
         show_path: bool = True,
         show_time: bool = True,
+        tracebacks_code_width: int = 88,
         tracebacks_extra_lines: int = 3,
+        tracebacks_max_frames: int = 100,
         tracebacks_show_locals: bool = False,
         tracebacks_suppress: Iterable[str | ModuleType] = (),
         tracebacks_theme: str | None = None,
@@ -71,7 +73,9 @@ class ConsoleHandler(RichHandler):
             show_level: Show a column for the level.
             show_path: Show the path to the original log call.
             show_time: Show a column for the time.
+            tracebacks_code_width: Number of code characters used to render tracebacks, or None for full width.
             tracebacks_extra_lines: Additional lines of code to render tracebacks, or None for full width.
+            tracebacks_max_frames: Optional maximum number of frames returned by traceback.
             tracebacks_show_locals: Enable display of locals in tracebacks.
             tracebacks_suppress: Optional sequence of modules or paths to exclude from traceback.
             tracebacks_theme: Override pygments theme used in traceback.
@@ -97,7 +101,9 @@ class ConsoleHandler(RichHandler):
             show_level=show_level,
             show_path=show_path,
             show_time=show_time,
+            tracebacks_code_width=tracebacks_code_width,
             tracebacks_extra_lines=tracebacks_extra_lines,
+            tracebacks_max_frames=tracebacks_max_frames,
             tracebacks_show_locals=tracebacks_show_locals,
             tracebacks_suppress=tracebacks_suppress,
             tracebacks_theme=tracebacks_theme,
