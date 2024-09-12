@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: testpypi
-      url: https://test.pypi.org/project/sphinxcontrib.external-links
+      url: https://test.pypi.org/project/${{ github.event.repository.name }}
     permissions:
       id-token: write
     steps:
