@@ -6,4 +6,4 @@
 [![pypi](https://img.shields.io/pypi/v/f-lib?style=flat)](https://pypi.org/project/f-lib/)
 [![renovate](https://img.shields.io/badge/enabled-brightgreen?logo=renovatebot&logoColor=%2373afae&label=renovate)](https://developer.mend.io/github/finleyfamily/f-lib)
 
-A library of useful functions and classes for python projects.
+A library of useful functions and classes for Python projects.
