@@ -129,10 +129,11 @@ class CliInterfaceMixin:
             capture_output: Whether to capture output.
                 This can be used when not wanting to suppress output but still needing
                 to process the contents. The output will be buffered and returned as a
-                string. If ``suppress_output`` is ``True``, this will be ignored.
+                string. If ``suppress_output`` is :data`True`, this will be ignored.
             env: Environment variables.
-            suppress_output: If ``True``, the output of the subprocess written
-                to ``sys.stdout`` and ``sys.stderr`` will be captured and
+            suppress_output: Whether to suppress output.
+                If :data`True`, the output of the subprocess written
+                to :data:`sys.stdout` and :data:`sys.stderr` will be captured and
                 returned as a string instead of being being written directly.
             timeout: Number of seconds to wait before terminating the child process.
                 Internally passed on to :meth:`~subprocess.Popen.communicate`.

@@ -3,6 +3,8 @@ SPHINXBUILD   = poetry run sphinx-build
 SOURCEDIR     = source
 BUILDDIR      = build
 
+SHELL := /bin/bash
+
 # Put it first so that "make" without argument is like "make help".
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
@@ -18,7 +20,7 @@ clean:
 docs: clean html-watch ## remove old build artifacts & start sphinx-autobuild server
 
 html-watch: ## start sphinx-autobuild server & open a browser window
-	@poetry run sphinx-autobuild "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O) --open-browser
+	poetry run sphinx-autobuild "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O) --watch ../f_lib --open-browser
 
 open:
 	@open build/html/index.html

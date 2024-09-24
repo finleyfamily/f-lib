@@ -1,12 +1,17 @@
 """Environment object class."""
 
+from __future__ import annotations
+
 import json
 import logging
 import os
 from pathlib import Path
-from typing import Self
+from typing import TYPE_CHECKING
 
 from ._system_info import SystemInfo
+
+if TYPE_CHECKING:
+    from typing_extensions import Self
 
 LOGGER = logging.getLogger(__name__)
 

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Self, TypeAlias, cast
+from typing import TYPE_CHECKING, Any, TypeAlias, cast
 
 from pydantic import BaseModel, ConfigDict
 
@@ -12,6 +12,8 @@ from ._log_level import LogLevel
 if TYPE_CHECKING:
     from collections.abc import Mapping
     from types import TracebackType
+
+    from typing_extensions import Self
 
 _SysExcInfoType: TypeAlias = (
     "tuple[type[BaseException], BaseException, TracebackType | None] | tuple[None, None, None]"

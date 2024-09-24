@@ -49,6 +49,7 @@ instance/
 lib/
 lib64/
 local_settings.py
+node_modules/
 nosetests.xml
 parts/
 pip-delete-this-directory.txt

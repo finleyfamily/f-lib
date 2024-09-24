@@ -5,23 +5,27 @@ https://www.sphinx-doc.org/en/master/usage/configuration.html
 """
 
 import os
-import tomllib
+import sys
 from datetime import date
 from pathlib import Path
+from typing import Any, cast
 
-from pkg_resources import get_distribution
+if sys.version_info < (3, 11):
+    import tomli as tomllib  # pyright: ignore[reportMissingImports]
+else:
+    import tomllib
 
 ROOT_DIR = Path(__file__).parent.parent.parent
 DOC_SRC = ROOT_DIR / "docs" / "source"
 
-PYPROJECT_TOML = tomllib.loads((ROOT_DIR / "pyproject.toml").read_text())
+PYPROJECT_TOML = cast(dict[str, Any], tomllib.loads((ROOT_DIR / "pyproject.toml").read_text()))
 """Read in the contents of ``../../pyproject.toml`` to reuse it's values."""
 
 # -- Project information -----------------------------------------------------
 project = PYPROJECT_TOML["tool"]["poetry"]["name"]
 copyright = f"{date.today().year}, Kyle Finley"  # noqa: A001, DTZ011
 author = PYPROJECT_TOML["tool"]["poetry"]["authors"][0]
-version = get_distribution(project).version
+version = PYPROJECT_TOML["tool"]["poetry"]["version"]
 release = ".".join(version.split(".")[:2])  # short X.Y version
 
 

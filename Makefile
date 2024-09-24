@@ -16,11 +16,7 @@ build: ## build the PyPi release
 
 .PHONY: docs
 docs: ## delete build artifacts, start sphinx-autobuild server, & open browser window
-	@if [[ -z "$${CI}" ]]; then \
-		$(MAKE) --no-print-directory -C docs docs; \
-	else \
-		$(MAKE) --no-print-directory docs-changes; \
-	fi
+	$(MAKE) --no-print-directory -C docs docs;
 
 docs-changes: ## build HTML docs; only builds changes detected by Sphinx
 	@$(MAKE) --no-print-directory -C docs html

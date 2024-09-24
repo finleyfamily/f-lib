@@ -9,12 +9,13 @@ classifiers = [
   "Natural Language :: English",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Topic :: Utilities",
   "Typing :: Typed",
 ]
-description = "Python library created by Kyle Finley, for Kyle Finley."
+description = "A library of useful functions and classes for Python projects."
 documentation = "https://f-lib.readthedocs.io"
 homepage = "https://f-lib.readthedocs.io"
 keywords = []
@@ -27,7 +28,7 @@ readme = "README.md"
 repository = "https://github.com/finleyfamily/f-lib"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 platformdirs = "^4.1.0"
 pydantic = "^2.7.4"
 pydantic-settings = "^2.3.4"
@@ -81,7 +82,7 @@ force-exclude = '''
 '''
 include = '\.pyi?$'
 line-length = 100
-target-version = ["py311", "py312"]
+target-version = ["py310", "py311", "py312"]
 
 [tool.coverage.report]
 exclude_lines = [
@@ -126,7 +127,7 @@ exclude = [
   "**/typings",
 ]
 pythonPlatform = "All"
-pythonVersion = "3.11"
+pythonVersion = "3.10"
 reportDuplicateImport = "none"
 reportImportCycles = "none"
 reportIncompatibleMethodOverride = "warning"
@@ -161,7 +162,7 @@ testpaths = ["tests"]
 force-exclude = true
 line-length = 120
 show-fixes = true
-target-version = "py311"
+target-version = "py310"
 
 [tool.ruff.lint]  # https://docs.astral.sh/ruff/settings/#lint
 ignore = [
