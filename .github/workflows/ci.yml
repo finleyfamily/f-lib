@@ -14,7 +14,7 @@ jobs:
   python-checks:
     strategy:
       matrix:
-        python-version: [3.11, 3.12]
+        python-version: [3.10, 3.11, 3.12]
     uses: finleyfamily/workflows/.github/workflows/python.checks.yml@master
     with:
       python-version: ${{ matrix.python-version }}
