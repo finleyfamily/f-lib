@@ -109,7 +109,7 @@ class Environment:
         LOGGER.debug("updated environment variables: %s", json.dumps(env_vars))
 
     def __bool__(self) -> bool:
-        """Evaluation of instances as a bool."""
+        """Evaluation of instance as a bool."""
         return bool(self.vars)
 
     def __eq__(self, other: object) -> bool:
