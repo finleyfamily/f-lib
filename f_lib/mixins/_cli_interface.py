@@ -39,13 +39,13 @@ class CliInterfaceMixin:
     @classmethod
     def generate_command(
         cls,
-        __command: list[str] | str | None = None,
+        _command: list[str] | str | None = None,
         **kwargs: bool | Iterable[pathlib.Path] | Iterable[str] | str | None,
     ) -> list[str]:
         """Generate command to be executed and log it.
 
         Args:
-            __command: Command to run.
+            _command: Command to run.
             **kwargs: Additional args to pass to the command.
 
         Returns:
@@ -54,7 +54,7 @@ class CliInterfaceMixin:
         """
         cmd = [
             cls.EXECUTABLE,
-            *(__command if isinstance(__command, list) else ([__command] if __command else [])),
+            *(_command if isinstance(_command, list) else ([_command] if _command else [])),
         ]
         cmd.extend(convert_kwargs_to_shell_list(**kwargs))
         LOGGER.debug("generated command: %s", convert_list_to_shell_str(cmd))
@@ -137,6 +137,9 @@ class CliInterfaceMixin:
                 returned as a string instead of being being written directly.
             timeout: Number of seconds to wait before terminating the child process.
                 Internally passed on to :meth:`~subprocess.Popen.communicate`.
+
+        Returns:
+            Output of the command if ``capture_output`` is :data`True`.
 
         """
         cmd_str = command if isinstance(command, str) else convert_list_to_shell_str(command)

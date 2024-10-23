@@ -106,4 +106,4 @@ def walk_propagation_tree(
     """
     while logger is not None:
         yield logger
-        logger = logger.parent if logger.propagate and hasattr(logger, "parent") else None
+        logger = getattr(logger, "parent", None) if logger.propagate else None
