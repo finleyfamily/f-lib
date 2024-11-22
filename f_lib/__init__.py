@@ -29,10 +29,10 @@ __all__ = [
     "Environment",
     "OsInfo",
     "SystemInfo",
+    "UnknownPlatformArchitectureError",
     "aws",
     "constants",
     "logging",
     "mixins",
     "utils",
-    "UnknownPlatformArchitectureError",
 ]
