@@ -1,7 +1,8 @@
-[tool.poetry]
+[project]
 name = "f-lib"
-version = "0.0.0"
-authors = ["Kyle Finley <kyle@finley.sh>"]
+authors = [
+  {email = "kyle@finley.sh", name = "Kyle Finley"},
+]
 classifiers = [
   # https://pypi.org/classifiers/
   "Development Status :: 4 - Beta",
@@ -14,24 +15,32 @@ classifiers = [
   "Topic :: Utilities",
   "Typing :: Typed",
 ]
+dependencies = [
+  "platformdirs (>=4.1.0, <5.0.0)",
+  "pydantic (>=2.7.4, <3.0.0)",
+  "pydantic-settings (>=2.3.4, <3.0.0)",
+  "rich (>=13.7.1, <14.0.0)",
+]
 description = "Python library created by Kyle Finley, for Kyle Finley."
+dynamic = ["version"]
+license = {text = "Apache-2.0"}
+maintainers = [
+  {email = "kyle@finley.sh", name = "Kyle Finley"},
+]
+requires-python = ">=3.11, <4"
+
+[project.urls]
+changelog = "https://github.com/finleyfamily/f-lib/releases"
 documentation = "https://f-lib.readthedocs.io"
 homepage = "https://f-lib.readthedocs.io"
-keywords = []
-license = "Apache-2.0"
-maintainers = []
+issues = "https://github.com/finleyfamily/f-lib/issues"
+source = "https://github.com/finleyfamily/f-lib"
+
+[tool.poetry]
 packages = [
   {include = "f_lib"},
 ]
-readme = "README.md"
-repository = "https://github.com/finleyfamily/f-lib"
-
-[tool.poetry.dependencies]
-python = "^3.11"
-platformdirs = "^4.1.0"
-pydantic = "^2.7.4"
-pydantic-settings = "^2.3.4"
-rich = "^13.7.1"
+version = "0.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.0.1"
@@ -61,11 +70,6 @@ pytest-xdist = "^3.6.0"
 [[tool.poetry.source]]
 name = "PyPI"
 priority = "primary"
-
-[tool.poetry.urls]
-bugs = "https://github.com/finleyfamily/f-lib/issues"
-changelog = "https://github.com/finleyfamily/f-lib/releases"
-issues = "https://github.com/finleyfamily/f-lib/issues"
 
 [tool.black]
 force-exclude = '''
@@ -212,12 +216,11 @@ max-returns = 10
 [tool.tomlsort]
 all = true
 in_place = true
-sort_first = ["tool", "tool.poetry"]
+sort_first = ["project", "tool", "tool.poetry"]
 spaces_before_inline_comment = 2
 trailing_comma_inline_array = true
-overrides."tool.poetry".first = ["name", "version"]
-overrides."tool.poetry.dependencies".first = ["python"]
+overrides.project.first = ["name", "version"]
 
 [build-system]
 build-backend = "poetry_dynamic_versioning.backend"
-requires = ["poetry-core>=1.0.7", "poetry-dynamic-versioning>=1.2.0,<2.0.0"]
+requires = ["poetry-core", "poetry-dynamic-versioning>=1.2.0,<2.0.0"]
