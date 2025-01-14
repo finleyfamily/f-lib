@@ -9,6 +9,8 @@ import tomllib
 from datetime import date
 from pathlib import Path
 
+from f_lib import __version__
+
 ROOT_DIR = Path(__file__).parent.parent.parent
 DOC_SRC = ROOT_DIR / "docs" / "source"
 
@@ -19,7 +21,7 @@ PYPROJECT_TOML = tomllib.loads((ROOT_DIR / "pyproject.toml").read_text())
 project = PYPROJECT_TOML["project"]["name"]
 copyright = f"{date.today().year}, Kyle Finley"  # noqa: A001, DTZ011
 author = PYPROJECT_TOML["project"]["authors"][0]["name"]
-version = PYPROJECT_TOML["tool"]["poetry"]["version"]
+version = __version__
 release = ".".join(version.split(".")[:2])  # short X.Y version
 
 

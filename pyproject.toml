@@ -67,9 +67,8 @@ pytest-subprocess = "^1.5.3"
 pytest-sugar = "^1.0.0"
 pytest-xdist = "^3.6.0"
 
-[[tool.poetry.source]]
-name = "PyPI"
-priority = "primary"
+[tool.poetry.requires-plugins]
+poetry-dynamic-versioning = {extras = ["plugin"], version = ">=1.6.0,<2.0.0"}
 
 [tool.black]
 force-exclude = '''
@@ -223,4 +222,4 @@ overrides.project.first = ["name", "version"]
 
 [build-system]
 build-backend = "poetry_dynamic_versioning.backend"
-requires = ["poetry-core", "poetry-dynamic-versioning>=1.2.0,<2.0.0"]
+requires = ["poetry-core", "poetry-dynamic-versioning>=1.6.0,<2.0.0"]
