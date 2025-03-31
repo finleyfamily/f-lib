@@ -3,26 +3,8 @@ name = "f-lib"
 authors = [
   {email = "kyle@finley.sh", name = "Kyle Finley"},
 ]
-classifiers = [
-  # https://pypi.org/classifiers/
-  "Development Status :: 4 - Beta",
-  "Intended Audience :: Developers",
-  "Natural Language :: English",
-  "Operating System :: OS Independent",
-  "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
-  "Topic :: Utilities",
-  "Typing :: Typed",
-]
-dependencies = [
-  "platformdirs (>=4.1.0, <5.0.0)",
-  "pydantic (>=2.7.4, <3.0.0)",
-  "pydantic-settings (>=2.3.4, <3.0.0)",
-  "rich (>=13.7.1, <14.0.0)",
-]
 description = "Python library created by Kyle Finley, for Kyle Finley."
-dynamic = ["version"]
+dynamic = ["classifiers", "dependencies", "version"]
 license = {text = "Apache-2.0"}
 maintainers = [
   {email = "kyle@finley.sh", name = "Kyle Finley"},
@@ -37,10 +19,26 @@ issues = "https://github.com/finleyfamily/f-lib/issues"
 source = "https://github.com/finleyfamily/f-lib"
 
 [tool.poetry]
+classifiers = [
+  # https://pypi.org/classifiers/
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Topic :: Utilities",
+  "Typing :: Typed",
+]
 packages = [
   {include = "f_lib"},
 ]
+requires-poetry = "^2.0"
 version = "0.0.0"
+
+[tool.poetry.dependencies]
+platformdirs = {version = "^4.1.0"}
+pydantic = {version = "^2.7.4"}
+pydantic-settings = {version = "^2.3.4"}
+rich = {version = "^13.7.1"}
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.2.0"

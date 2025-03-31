@@ -18,60 +18,60 @@ build: ## build the PyPi release
 docs: ## delete build artifacts, start sphinx-autobuild server, & open browser window
 	$(MAKE) --no-print-directory -C docs docs;
 
-docs-changes: ## build HTML docs; only builds changes detected by Sphinx
+docs.changes: ## build HTML docs; only builds changes detected by Sphinx
 	@$(MAKE) --no-print-directory -C docs html
 
-docs-clean: ## delete build artifacts & build HTML docs
+docs.clean: ## delete build artifacts & build HTML docs
 	@$(MAKE) --no-print-directory -C docs clean html
 
-docs-linkcheck: ## check external links
+docs.linkcheck: ## check external links
 	@$(MAKE) --no-print-directory -C docs linkcheck
 
-fix: fix-ruff fix-black run-pre-commit ## run all automatic fixes
+fix: fix.ruff fix.black run.pre-commit ## run all automatic fixes
 
-fix-black: ## automatically fix all black errors
+fix.black: ## automatically fix all black errors
 	@poetry run black .
 
-fix-imports: ## automatically fix all import sorting errors
+fix.imports: ## automatically fix all import sorting errors
 	@poetry run ruff check . --fix-only --fixable I001
 
-fix-ruff: ## automatically fix everything ruff can fix (implies fix-imports)
+fix.ruff: ## automatically fix everything ruff can fix (implies fix-imports)
 	@poetry run ruff check . --fix-only
 
-lint: lint-black lint-ruff lint-pyright ## run all linters
+lint: lint.black lint.ruff lint.pyright ## run all linters
 
-lint-black: ## run black
-	@echo "Running black... If this fails, run 'make fix-black' to resolve."
+lint.black: ## run black
+	@echo "Running black... If this fails, run 'make fix.black' to resolve."
 	@poetry run black . --check --color --diff
 	@echo ""
 
-lint-pyright: ## run pyright
+lint.pyright: ## run pyright
 	@echo "Running pyright..."
 	@npm exec --no -- pyright --venvpath ./
 	@echo ""
 
-lint-ruff: ## run ruff
-	@echo "Running ruff... If this fails, run 'make fix-ruff' to resolve some error automatically, other require manual action."
+lint.ruff: ## run ruff
+	@echo "Running ruff... If this fails, run 'make fix.ruff' to resolve some error automatically, other require manual action."
 	@poetry run ruff check .
 	@echo ""
 
-open-docs: ## open docs (HTML files must already exists)
+open.docs: ## open docs (HTML files must already exists)
 	@$(MAKE) --no-print-directory -C docs open
 
-run-pre-commit: ## run pre-commit for all files
+run.pre-commit: ## run pre-commit for all files
 	@poetry run pre-commit run $(PRE_COMMIT_OPTS) \
 		--all-files \
 		--color always
 
-setup: setup-poetry setup-pre-commit setup-npm ## setup development environment
+setup: setup.poetry setup.pre-commit setup.npm ## setup development environment
 
-setup-npm: ## install node dependencies with npm
+setup.npm: ## install node dependencies with npm
 	@npm ci
 
-setup-poetry: ## setup python virtual environment
+setup.poetry: ## setup python virtual environment
 	@poetry sync $(POETRY_OPTS) --ansi
 
-setup-pre-commit: ## install pre-commit git hooks
+setup.pre-commit: ## install pre-commit git hooks
 	@poetry run pre-commit install
 
 spellcheck: ## run cspell
