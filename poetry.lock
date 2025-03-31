@@ -1158,14 +1158,14 @@ docutils = ">=0.11,<1.0"
 
 [[package]]
 name = "rich"
-version = "13.7.1"
+version = "14.0.0"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
 optional = false
-python-versions = ">=3.7.0"
+python-versions = ">=3.8.0"
 groups = ["main"]
 files = [
-    {file = "rich-13.7.1-py3-none-any.whl", hash = "sha256:4edbae314f59eb482f54e9e30bf00d33350aaa94f4bfcd4e9e3110e64d0d7222"},
-    {file = "rich-13.7.1.tar.gz", hash = "sha256:9be308cb1fe2f1f57d67ce99e95af38a1e2bc71ad9813b0e247cf7ffbcc3a432"},
+    {file = "rich-14.0.0-py3-none-any.whl", hash = "sha256:1c9491e1951aac09caffd42f448ee3d04e58923ffe14993f6e83068dc395d7e0"},
+    {file = "rich-14.0.0.tar.gz", hash = "sha256:82f1bc23a6a21ebca4ae0c45af9bdbc492ed20231dcb63f297d6d1021a9d5725"},
 ]
 
 [package.dependencies]
@@ -1793,4 +1793,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11, <4"
-content-hash = "3631057f3e35b0ea30e736f30524b0320c490f40d40099b87a656e13a6f14808"
+content-hash = "c339dca5be5a60fe756623a592d0727704266593bc2aa0b1e9f6e534332990f3"

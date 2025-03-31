@@ -38,7 +38,7 @@ version = "0.0.0"
 platformdirs = {version = "^4.1.0"}
 pydantic = {version = "^2.7.4"}
 pydantic-settings = {version = "^2.3.4"}
-rich = {version = "^13.7.1"}
+rich = {version = "^14.0.0"}
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.2.0"
