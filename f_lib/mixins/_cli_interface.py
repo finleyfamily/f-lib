@@ -193,8 +193,8 @@ class CliInterfaceMixin:
             stdout=subprocess.PIPE,
             universal_newlines=True,
         ) as proc:
-            with cast(IO[str], proc.stdout):
-                for line in cast(IO[str], proc.stdout):
+            with cast("IO[str]", proc.stdout):
+                for line in cast("IO[str]", proc.stdout):
                     print(line, end="")  # noqa: T201
                     output_list.append(line)
             # strip any ANSI escape sequences from output

@@ -28,7 +28,7 @@ class OsInfo:
 
         """
         if cls.__instance is None:
-            cls.__instance = cast(OsInfo, super().__new__(cls, *args, **kwargs))
+            cls.__instance = cast("OsInfo", super().__new__(cls, *args, **kwargs))
         return cls.__instance
 
     @cached_property
