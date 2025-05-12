@@ -9,7 +9,7 @@ license = {text = "Apache-2.0"}
 maintainers = [
   {email = "kyle@finley.sh", name = "Kyle Finley"},
 ]
-requires-python = ">=3.11, <4"
+requires-python = ">=3.13.3, <4"
 
 [project.urls]
 changelog = "https://github.com/finleyfamily/f-lib/releases"
