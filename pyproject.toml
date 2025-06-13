@@ -44,7 +44,7 @@ rich = {version = "^14.0.0"}
 pre-commit = "^4.2.0"
 
 [tool.poetry.group.docs.dependencies]
-doc8 = "^1.1.2"
+doc8 = "^2.0.0"
 furo = "^2024.8.6"
 sphinx = "^8.2.3"
 sphinx-autobuild = "^2024.10.3"
