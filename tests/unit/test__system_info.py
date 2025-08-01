@@ -96,9 +96,7 @@ class TestSystemInfo:
         mocker.patch(f"{MODULE}.sys.maxsize", maxsize)
         assert SystemInfo().is_64bit is expected
 
-    @pytest.mark.parametrize(
-        ("expected", "machine"), [(False, "leg"), (True, "arm"), (True, "ARM"), (True, "aarch")]
-    )
+    @pytest.mark.parametrize(("expected", "machine"), [(False, "leg"), (True, "arm"), (True, "ARM"), (True, "aarch")])
     def test_is_arm(self, expected: bool, machine: str, mocker: MockerFixture) -> None:
         """Test is_arm."""
         platform_machine = mocker.patch(f"{MODULE}.platform.machine", return_value=machine)

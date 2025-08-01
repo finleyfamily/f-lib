@@ -39,9 +39,7 @@ def handler_kls(mocker: MockerFixture) -> Mock:
 @pytest.fixture
 def logger() -> logging.Logger:
     """Logger."""
-    return logging.getLogger(
-        "".join(secrets.choice(string.digits + string.ascii_letters) for _ in range(8))
-    )
+    return logging.getLogger("".join(secrets.choice(string.digits + string.ascii_letters) for _ in range(8)))
 
 
 @pytest.fixture
@@ -85,12 +83,10 @@ def test_setup_logging(
         tracebacks_theme=settings.console.tracebacks_theme,
     )
     formatter.assert_called_once_with(DEFAULT_LOG_FORMAT)
-    assert (
-        handler_kls.return_value.formatter == formatter.return_value
-    ), "setFormatter should be called to add a formatter to the handler"
-    assert logger.handlers == [
-        handler_kls.return_value
-    ], "addHandler should be called to add the handler to the logger"
+    assert handler_kls.return_value.formatter == formatter.return_value, (
+        "setFormatter should be called to add a formatter to the handler"
+    )
+    assert logger.handlers == [handler_kls.return_value], "addHandler should be called to add the handler to the logger"
 
 
 def test_setup_logging_no_reconfigure(
@@ -121,9 +117,7 @@ def test_setup_logging_reconfigure(
     )
     optionally_replace_handler.assert_called_once_with(logger, reconfigure=True)
     assert handler_kls.return_value.filters == handler.filters
-    assert logger.handlers == [
-        handler_kls.return_value
-    ], "addHandler should be called to add the handler to the logger"
+    assert logger.handlers == [handler_kls.return_value], "addHandler should be called to add the handler to the logger"
 
 
 @pytest.mark.parametrize("reconfigure", [False, True])
@@ -166,9 +160,7 @@ def test_setup_logging_user_provided(
         tracebacks_suppress=("foo",),
         tracebacks_theme=settings.console.tracebacks_theme,
     )
-    assert (
-        handler_kls.return_value.formatter == custom_formatter
-    ), "setFormatter should be called to add a formatter to the handler"
-    assert logger.handlers == [
-        handler_kls.return_value
-    ], "addHandler should be called to add the handler to the logger"
+    assert handler_kls.return_value.formatter == custom_formatter, (
+        "setFormatter should be called to add a formatter to the handler"
+    )
+    assert logger.handlers == [handler_kls.return_value], "addHandler should be called to add the handler to the logger"

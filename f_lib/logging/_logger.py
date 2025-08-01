@@ -13,9 +13,7 @@ if TYPE_CHECKING:
     from collections.abc import Mapping
     from types import TracebackType
 
-_SysExcInfoType: TypeAlias = (
-    "tuple[type[BaseException], BaseException, TracebackType | None] | tuple[None, None, None]"
-)
+_SysExcInfoType: TypeAlias = "tuple[type[BaseException], BaseException, TracebackType | None] | tuple[None, None, None]"
 _ExcInfoType: TypeAlias = "None | bool | _SysExcInfoType | BaseException"
 
 

@@ -54,7 +54,6 @@ sphinxcontrib-apidoc = "^0.6.0"
 sphinxcontrib-jquery = "^4.1"
 
 [tool.poetry.group.lint.dependencies]
-black = "^25.1.0"
 ruff = "^0.12.7"
 
 [tool.poetry.group.test.dependencies]
@@ -67,22 +66,6 @@ pytest-xdist = "^3.8.0"
 
 [tool.poetry.requires-plugins]
 poetry-dynamic-versioning = {extras = ["plugin"], version = ">=1.6.0,<2.0.0"}
-
-[tool.black]
-force-exclude = '''
-/(
-    \.eggs
-  | \.git
-  | \.venv
-  | _build
-  | build
-  | dist
-  | node_modules
-)/
-'''
-include = '\.pyi?$'
-line-length = 100
-target-version = ["py311", "py312"]
 
 [tool.coverage.report]
 exclude_lines = [
@@ -163,6 +146,9 @@ force-exclude = true
 line-length = 120
 show-fixes = true
 target-version = "py311"
+
+[tool.ruff.format]  # https://docs.astral.sh/ruff/settings/#format
+docstring-code-format = true
 
 [tool.ruff.lint]  # https://docs.astral.sh/ruff/settings/#lint
 ignore = [

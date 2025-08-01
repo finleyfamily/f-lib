@@ -57,13 +57,9 @@ class TestConsoleHandler:
         ("escape", "markup", "expected"),
         [(False, False, False), (False, True, False), (True, False, False), (True, True, True)],
     )
-    def test__determine_should_escape(
-        self, escape: bool, expected: bool, markup: bool, mocker: MockerFixture
-    ) -> None:
+    def test__determine_should_escape(self, escape: bool, expected: bool, markup: bool, mocker: MockerFixture) -> None:
         """Test _determine_should_escape."""
-        determine_use_markup = mocker.patch.object(
-            ConsoleHandler, "_determine_use_markup", return_value=markup
-        )
+        determine_use_markup = mocker.patch.object(ConsoleHandler, "_determine_use_markup", return_value=markup)
         record = Mock(escape=escape)
         assert ConsoleHandler()._determine_should_escape(record) is expected
         determine_use_markup.assert_called_once_with(record)
@@ -79,9 +75,7 @@ class TestConsoleHandler:
             (True, None, True),
         ],
     )
-    def test__determine_use_markup(
-        self, expected: bool, handler_markup: bool, record_markup: bool | None
-    ) -> None:
+    def test__determine_use_markup(self, expected: bool, handler_markup: bool, record_markup: bool | None) -> None:
         """Test _determine_use_markup."""
         record = Mock(markup=record_markup)
         if record_markup is None:
@@ -91,9 +85,7 @@ class TestConsoleHandler:
     def test__style_message(self, mocker: MockerFixture) -> None:
         """Test _style_message."""
         record = Mock()
-        determine_use_markup = mocker.patch.object(
-            ConsoleHandler, "_determine_use_markup", return_value=False
-        )
+        determine_use_markup = mocker.patch.object(ConsoleHandler, "_determine_use_markup", return_value=False)
         from_markup = mocker.patch(f"{MODULE}.Text.from_markup")
         assert ConsoleHandler()._style_message(record, "msg") == (record, "msg")
         determine_use_markup.assert_called_once_with(record)
@@ -102,12 +94,8 @@ class TestConsoleHandler:
     def test__style_message_markup(self, mocker: MockerFixture) -> None:
         """Test _style_message with markup."""
         record = Mock(levelname="INFO")
-        determine_use_markup = mocker.patch.object(
-            ConsoleHandler, "_determine_use_markup", return_value=True
-        )
-        from_markup = mocker.patch(
-            f"{MODULE}.Text.from_markup", return_value=Mock(markup="success")
-        )
+        determine_use_markup = mocker.patch.object(ConsoleHandler, "_determine_use_markup", return_value=True)
+        from_markup = mocker.patch(f"{MODULE}.Text.from_markup", return_value=Mock(markup="success"))
         assert ConsoleHandler()._style_message(record, "msg") == (record, "success")
         determine_use_markup.assert_called_once_with(record)
         from_markup.assert_called_once_with("msg", style="info")
@@ -122,16 +110,10 @@ class TestConsoleHandler:
     def test_render_message(self, mocker: MockerFixture) -> None:
         """Test render_message."""
         record = Mock(name="record")
-        determine_should_escape = mocker.patch.object(
-            ConsoleHandler, "_determine_should_escape", return_value=True
-        )
+        determine_should_escape = mocker.patch.object(ConsoleHandler, "_determine_should_escape", return_value=True)
         escape = mocker.patch(f"{MODULE}.escape", return_value="escaped")
-        render_message = mocker.patch(
-            f"{MODULE}.RichHandler.render_message", return_value="rendered"
-        )
-        style_message = mocker.patch.object(
-            ConsoleHandler, "_style_message", return_value=("style", "message")
-        )
+        render_message = mocker.patch(f"{MODULE}.RichHandler.render_message", return_value="rendered")
+        style_message = mocker.patch.object(ConsoleHandler, "_style_message", return_value=("style", "message"))
         assert ConsoleHandler().render_message(record, "message") == render_message.return_value
         determine_should_escape.assert_called_once_with(record)
         escape.assert_called_once_with("message")
@@ -140,7 +122,6 @@ class TestConsoleHandler:
 
 
 class SetupLoggingProtocol(Protocol):  # noqa: D101
-
     def __call__(  # noqa: D102
         self, *, show_level: bool, show_path: bool, show_time: bool
     ) -> tuple[logging.Logger, ConsoleHandler]: ...
@@ -154,9 +135,7 @@ def rich_logger_fixture() -> SetupLoggingProtocol:
 
     """
 
-    def _setup_logging(
-        *, show_level: bool, show_path: bool, show_time: bool
-    ) -> tuple[logging.Logger, ConsoleHandler]:
+    def _setup_logging(*, show_level: bool, show_path: bool, show_time: bool) -> tuple[logging.Logger, ConsoleHandler]:
         rich_handler = ConsoleHandler(
             console=Console(
                 file=io.StringIO(),
@@ -172,9 +151,7 @@ def rich_logger_fixture() -> SetupLoggingProtocol:
             show_time=show_time,
         )
 
-        logging.basicConfig(
-            level="NOTSET", format="%(message)s", datefmt="[DATE]", handlers=[rich_handler]
-        )
+        logging.basicConfig(level="NOTSET", format="%(message)s", datefmt="[DATE]", handlers=[rich_handler])
         rich_log = logging.getLogger("rich")
         rich_log.addHandler(rich_handler)
         return (rich_log, rich_handler)
@@ -196,9 +173,7 @@ def test_logging(
     Taken from https://github.com/pycontribs/enrich/blob/6d102221429ee780d7d8185599c02b9a9c11e71d/test/test_logging.py.
 
     """
-    (logger, rich_handler) = rich_logger(
-        show_level=show_level, show_path=show_path, show_time=show_time
-    )
+    (logger, rich_handler) = rich_logger(show_level=show_level, show_path=show_path, show_time=show_time)
     date_str = rich_handler.console.get_datetime().date().strftime("%x")
     file_name = __file__.split("/")[-1]
 

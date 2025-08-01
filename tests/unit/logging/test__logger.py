@@ -11,7 +11,6 @@ from f_lib.logging._log_level import LogLevel
 from f_lib.logging._logger import Logger, LoggerSettings
 
 if TYPE_CHECKING:
-
     from pytest_mock import MockerFixture
 
 
@@ -47,9 +46,7 @@ class TestLogger:
     def test__log_markup(self, mocker: MockerFixture) -> None:
         """Test _log markup."""
         mock_log = mocker.patch("f_lib.logging._logger.logging.Logger._log")
-        assert not Logger("test", settings=LoggerSettings(markup=True))._log(
-            LogLevel.INFO, "this is a test", ()
-        )
+        assert not Logger("test", settings=LoggerSettings(markup=True))._log(LogLevel.INFO, "this is a test", ())
         mock_log.assert_called_once_with(
             LogLevel.INFO,
             "this is a test",
@@ -75,9 +72,7 @@ class TestLogger:
         assert not Logger("test").notice("msg", key="val")
         is_enabled_for.assert_called_once_with(LogLevel.NOTICE)
         if enabled:
-            log.assert_called_once_with(
-                LogLevel.NOTICE, "msg", (), exc_info=False, extra=None, key="val"
-            )
+            log.assert_called_once_with(LogLevel.NOTICE, "msg", (), exc_info=False, extra=None, key="val")
         else:
             log.assert_not_called()
 
@@ -88,9 +83,7 @@ class TestLogger:
         assert not Logger("test").success("msg", key="val")
         is_enabled_for.assert_called_once_with(LogLevel.SUCCESS)
         if enabled:
-            log.assert_called_once_with(
-                LogLevel.SUCCESS, "msg", (), exc_info=False, extra=None, key="val"
-            )
+            log.assert_called_once_with(LogLevel.SUCCESS, "msg", (), exc_info=False, extra=None, key="val")
         else:
             log.assert_not_called()
 
@@ -101,8 +94,6 @@ class TestLogger:
         assert not Logger("test").verbose("msg", key="val")
         is_enabled_for.assert_called_once_with(LogLevel.VERBOSE)
         if enabled:
-            log.assert_called_once_with(
-                LogLevel.VERBOSE, "msg", (), exc_info=False, extra=None, key="val"
-            )
+            log.assert_called_once_with(LogLevel.VERBOSE, "msg", (), exc_info=False, extra=None, key="val")
         else:
             log.assert_not_called()

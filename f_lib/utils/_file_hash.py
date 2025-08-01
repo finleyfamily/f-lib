@@ -99,10 +99,7 @@ class FileHash:
 
         """
         self._hash.update(
-            (
-                str(Path(file_path).relative_to(relative_to) if relative_to else Path(file_path))
-                + end_character
-            ).encode()
+            (str(Path(file_path).relative_to(relative_to) if relative_to else Path(file_path)) + end_character).encode()
         )
 
     def add_files(

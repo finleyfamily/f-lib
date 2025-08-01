@@ -34,9 +34,7 @@ def root_logger() -> logging.Logger:
 @pytest.fixture
 def parent_logger(root_logger: logging.Logger) -> logging.Logger:
     """Parent logger."""
-    return root_logger.getChild(
-        "".join(secrets.choice(string.digits + string.ascii_letters) for _ in range(8))
-    )
+    return root_logger.getChild("".join(secrets.choice(string.digits + string.ascii_letters) for _ in range(8)))
 
 
 @pytest.fixture
@@ -95,9 +93,7 @@ def test_optionally_replace_handler(mocker: MockerFixture, reconfigure: bool) ->
     match_handler = Mock(name="match_handler")
     find_handler = mocker.patch(f"{MODULE}.find_handler", return_value=(handler, other_logger))
 
-    result = optionally_replace_handler(
-        logger, match_handler=match_handler, reconfigure=reconfigure
-    )
+    result = optionally_replace_handler(logger, match_handler=match_handler, reconfigure=reconfigure)
     find_handler.assert_called_once_with(logger, match_handler)
     if reconfigure:
         other_logger.removeHandler.assert_called_once_with(handler)
@@ -131,9 +127,7 @@ def test_walk_propagation_tree(
     ]
 
 
-def test_walk_propagation_tree_no_propagate(
-    child_logger: logging.Logger, grandchild_logger: logging.Logger
-) -> None:
+def test_walk_propagation_tree_no_propagate(child_logger: logging.Logger, grandchild_logger: logging.Logger) -> None:
     """Test walk_propagation_tree."""
     child_logger.propagate = False
     assert list(walk_propagation_tree(grandchild_logger)) == [

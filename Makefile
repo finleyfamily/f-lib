@@ -27,23 +27,18 @@ docs.clean: ## delete build artifacts & build HTML docs
 docs.linkcheck: ## check external links
 	@$(MAKE) --no-print-directory -C docs linkcheck
 
-fix: fix.ruff fix.black run.pre-commit ## run all automatic fixes
+fix: fix.ruff run.pre-commit ## run all automatic fixes
 
-fix.black: ## automatically fix all black errors
-	@poetry run black .
+fix.formatting: ## automatically fix ruff formatting issues
+	@poetry run ruff format .
 
 fix.imports: ## automatically fix all import sorting errors
 	@poetry run ruff check . --fix-only --fixable I001
 
-fix.ruff: ## automatically fix everything ruff can fix (implies fix-imports)
+fix.ruff: fix.formatting ## automatically fix everything ruff can fix (implies fix-imports)
 	@poetry run ruff check . --fix-only
 
-lint: lint.black lint.ruff lint.pyright ## run all linters
-
-lint.black: ## run black
-	@echo "Running black... If this fails, run 'make fix.black' to resolve."
-	@poetry run black . --check --color --diff
-	@echo ""
+lint: lint.ruff lint.pyright ## run all linters
 
 lint.pyright: ## run pyright
 	@echo "Running pyright..."
@@ -52,6 +47,7 @@ lint.pyright: ## run pyright
 
 lint.ruff: ## run ruff
 	@echo "Running ruff... If this fails, run 'make fix.ruff' to resolve some error automatically, other require manual action."
+	@poetry run ruff format . --diff
 	@poetry run ruff check .
 	@echo ""
 

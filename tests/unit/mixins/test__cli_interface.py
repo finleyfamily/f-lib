@@ -32,16 +32,11 @@ class TestCliInterfaceMixin:
             self.env = environment
 
     @pytest.mark.parametrize("env", [None, {"foo": "bar"}])
-    def test__run_command(
-        self, env: dict[str, str] | None, mocker: MockerFixture, tmp_path: Path
-    ) -> None:
+    def test__run_command(self, env: dict[str, str] | None, mocker: MockerFixture, tmp_path: Path) -> None:
         """Test _run_command."""
         ctx_env = {"foo": "bar", "bar": "foo"}
         mock_subprocess = mocker.patch(f"{MODULE}.subprocess.check_output", return_value="success")
-        assert (
-            self.Kls(tmp_path, Mock(vars=ctx_env))._run_command("test", env=env)
-            == mock_subprocess.return_value
-        )
+        assert self.Kls(tmp_path, Mock(vars=ctx_env))._run_command("test", env=env) == mock_subprocess.return_value
         mock_subprocess.assert_called_once_with(
             "test",
             cwd=tmp_path,
@@ -65,9 +60,7 @@ class TestCliInterfaceMixin:
             stdout="\x1b[33msuccess\x1b[39m",  # cspell: disable-line
         )
         assert (
-            self.Kls(tmp_path, environment)._run_command(
-                "test", suppress_output=False, capture_output=True
-            )
+            self.Kls(tmp_path, environment)._run_command("test", suppress_output=False, capture_output=True)
             == "success"
         )
 
@@ -79,25 +72,21 @@ class TestCliInterfaceMixin:
     ) -> None:
         """Test _run_command with capture_output."""
         fake_process.register_subprocess(
-            "test", returncode=1, stdout="\x1b[33mfail\x1b[39m"  # cspell: disable-line
+            "test",
+            returncode=1,
+            stdout="\x1b[33mfail\x1b[39m",  # cspell: disable-line
         )
         with pytest.raises(subprocess.CalledProcessError) as excinfo:
-            self.Kls(tmp_path, environment)._run_command(
-                "test", suppress_output=False, capture_output=True
-            )
+            self.Kls(tmp_path, environment)._run_command("test", suppress_output=False, capture_output=True)
         assert excinfo.value.returncode == 1
         assert excinfo.value.output == "fail"
 
     def test__run_command_no_suppress_output(self, mocker: MockerFixture, tmp_path: Path) -> None:
         """Test _run_command."""
         env = {"foo": "bar"}
-        mock_convert_list_to_shell_str = mocker.patch(
-            f"{MODULE}.convert_list_to_shell_str", return_value="success"
-        )
+        mock_convert_list_to_shell_str = mocker.patch(f"{MODULE}.convert_list_to_shell_str", return_value="success")
         mock_subprocess = mocker.patch(f"{MODULE}.subprocess.check_call", return_value=0)
-        assert not self.Kls(tmp_path, Mock(vars=env))._run_command(
-            ["foo", "bar"], suppress_output=False
-        )
+        assert not self.Kls(tmp_path, Mock(vars=env))._run_command(["foo", "bar"], suppress_output=False)
         mock_convert_list_to_shell_str.assert_called_once_with(["foo", "bar"])
         mock_subprocess.assert_called_once_with(
             mock_convert_list_to_shell_str.return_value,

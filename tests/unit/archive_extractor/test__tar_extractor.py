@@ -30,9 +30,7 @@ class TestTarExtractor:
         with pytest.raises(ArchiveTypeError, match="suffix supported by this extractor"):
             TarExtractor(zip_file)
 
-    @pytest.mark.parametrize(
-        "archive_name", ["bz2_file", "gz_file", "gzip_file", "tar_file", "xz_file"]
-    )
+    @pytest.mark.parametrize("archive_name", ["bz2_file", "gz_file", "gzip_file", "tar_file", "xz_file"])
     def test_extract(
         self,
         archive_name: ArchiveFixtureLiteral,

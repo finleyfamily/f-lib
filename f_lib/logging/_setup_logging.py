@@ -80,7 +80,5 @@ def setup_logging(
         )
         if filters:
             handler.filters = filters
-        handler.setFormatter(
-            formatter if formatter is not None else logging.Formatter(DEFAULT_LOG_FORMAT)
-        )
+        handler.setFormatter(formatter if formatter is not None else logging.Formatter(DEFAULT_LOG_FORMAT))
         logger.addHandler(handler)

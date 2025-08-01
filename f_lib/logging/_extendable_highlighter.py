@@ -31,14 +31,10 @@ class ExtendableHighlighter(Highlighter):
     __slots__ = ()
 
     DEFAULT_HIGHLIGHTS: ClassVar[tuple[HighlightTypedDict, ...]] = (
-        HighlightTypedDict(
-            base_style=ReprHighlighter.base_style, highlights=ReprHighlighter.highlights
-        ),
+        HighlightTypedDict(base_style=ReprHighlighter.base_style, highlights=ReprHighlighter.highlights),
         HighlightTypedDict(
             base_style="aws.",
-            highlights=(
-                r"(?P<region>(us(-gov)?|ap|ca|cn|eu|sa)-(central|(north|south)?(east|west)?)-\d)",
-            ),
+            highlights=(r"(?P<region>(us(-gov)?|ap|ca|cn|eu|sa)-(central|(north|south)?(east|west)?)-\d)",),
         ),
         HighlightTypedDict(
             base_style="aws.cloudformation.",

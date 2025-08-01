@@ -9,9 +9,7 @@ if TYPE_CHECKING:
 
     import pytest
 
-ArchiveFixtureLiteral = Literal[
-    "bz2_file", "gz_file", "gzip_file", "tar_file", "xz_file", "zip_file"
-]
+ArchiveFixtureLiteral = Literal["bz2_file", "gz_file", "gzip_file", "tar_file", "xz_file", "zip_file"]
 
 
 def get_archive_fixture(

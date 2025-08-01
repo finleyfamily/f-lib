@@ -51,11 +51,7 @@ class FluidLogRender:
             if log_time is None:  # cov: ignore
                 log_time = console.get_datetime()
             time_format = time_format or self.time_format
-            log_time_display = (
-                time_format(log_time)
-                if callable(time_format)
-                else Text(log_time.strftime(time_format))
-            )
+            log_time_display = time_format(log_time) if callable(time_format) else Text(log_time.strftime(time_format))
             if log_time_display == self._last_time and self.omit_repeated_times:
                 result += Text(" " * len(log_time_display))
             else:

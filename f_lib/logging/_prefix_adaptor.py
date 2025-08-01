@@ -19,8 +19,8 @@ class PrefixAdaptor(logging.LoggerAdapter["Logger | PrefixAdaptor"]):
     .. rubric:: Example
     .. code-block:: python
 
-        logger = PrefixAdaptor('something', logging.getLogger('example'))
-        logger.info('my message')
+        logger = PrefixAdaptor("something", logging.getLogger("example"))
+        logger.info("my message")
 
     """
 
@@ -67,9 +67,7 @@ class PrefixAdaptor(logging.LoggerAdapter["Logger | PrefixAdaptor"]):
         """
         self.log(LogLevel.NOTICE, msg, *args, exc_info=exc_info, extra=extra, **kwargs)
 
-    def process(
-        self, msg: object, kwargs: MutableMapping[str, Any]
-    ) -> tuple[str, MutableMapping[str, object]]:
+    def process(self, msg: object, kwargs: MutableMapping[str, Any]) -> tuple[str, MutableMapping[str, object]]:
         """Process the message to append the prefix.
 
         Args:
