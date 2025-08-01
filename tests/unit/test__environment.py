@@ -48,6 +48,14 @@ class TestEnvironment:
             "key": "value"
         }
 
+    def test___hash__(self, tmp_path: Path) -> None:
+        """Test __hash__."""
+        obj = Environment(environ={"key": "value"}, root_dir=tmp_path)
+        assert isinstance(hash(obj), int)
+
+        # Ensure that the hash is consistent
+        assert hash(obj) == hash(obj)
+
     def test___init__(self, cd_tmp_path: Path) -> None:
         """Test attributes set by init."""
         new_dir = cd_tmp_path / "new_dir"

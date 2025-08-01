@@ -118,6 +118,10 @@ class Environment:
             return bool(self.root_dir == other.root_dir and self.vars == other.vars)
         return NotImplemented
 
+    def __hash__(self) -> int:
+        """Return a hash of the object."""
+        return hash((self.root_dir, frozenset(self.vars.items())))
+
     def __ne__(self, other: object) -> bool:
         """Compare self with another object for inequality."""
         return not self == other
