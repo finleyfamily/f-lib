@@ -166,15 +166,8 @@ target-version = "py311"
 
 [tool.ruff.lint]  # https://docs.astral.sh/ruff/settings/#lint
 ignore = [
-  "COM812",  # Trailing comma missing
-  "D203",  # 1 blank line required before class docstring
-  "D213",  # Multi-line docstring summary should start at the second line
-  "D215",  # Section underline is over-indented
+  "COM812",  # Trailing comma missing  # NOTE (kyle): needs to be disabled when using formatter
   "D403",  # First word of the first line should be capitalized
-  "D406",  # Section name should end with a newline
-  "D407",  # Missing dashed underline after section
-  "D408",  # Section underline should be in the line following the section's name
-  "D409",  # Section underline should match the length of its name
   "ERA001",  # Found commented-out code  # NOTE (kyle): incorrectly detects cspell
   "FIX002",  # Line contains TODO
   "TD003",  # Missing issue link on the line following this TODO
@@ -220,4 +213,4 @@ overrides.project.first = ["name", "version"]
 
 [build-system]
 build-backend = "poetry_dynamic_versioning.backend"
-requires = ["poetry-core", "poetry-dynamic-versioning>=1.7.1,<2.0.0"]
+requires = ["poetry-core>=2.0.0,<3.0.0", "poetry-dynamic-versioning>=1.7.1,<2.0.0"]

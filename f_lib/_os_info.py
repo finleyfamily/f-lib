@@ -117,6 +117,10 @@ class OsInfo:
         """Compare self with another object for equality."""
         return id(self) == id(other)
 
+    def __hash__(self) -> int:
+        """Return a hash of the object."""
+        return hash(id(self))
+
     def __ne__(self, other: object) -> bool:
         """Compare self with another object for inequality."""
         return not self == other

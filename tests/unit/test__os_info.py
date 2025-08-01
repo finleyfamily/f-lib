@@ -40,6 +40,14 @@ class TestOsInfo:
         """Test __eq__ is ``False``."""
         assert not OsInfo() == "foo"  # noqa: SIM201
 
+    def test___hash__(self) -> None:
+        """Test __hash__."""
+        obj = OsInfo()
+        assert isinstance(hash(obj), int)
+
+        # Ensure that the hash is consistent
+        assert hash(obj) == hash(obj)
+
     def test___nq__(self) -> None:
         """Test __ne__."""
         assert OsInfo() != "foo"
