@@ -430,14 +430,14 @@ files = [
 
 [[package]]
 name = "furo"
-version = "2025.7.19"
+version = "2025.9.25"
 description = "A clean customisable Sphinx documentation theme."
 optional = false
 python-versions = ">=3.8"
 groups = ["docs"]
 files = [
-    {file = "furo-2025.7.19-py3-none-any.whl", hash = "sha256:bdea869822dfd2b494ea84c0973937e35d1575af088b6721a29c7f7878adc9e3"},
-    {file = "furo-2025.7.19.tar.gz", hash = "sha256:4164b2cafcf4023a59bb3c594e935e2516f6b9d35e9a5ea83d8f6b43808fe91f"},
+    {file = "furo-2025.9.25-py3-none-any.whl", hash = "sha256:2937f68e823b8e37b410c972c371bc2b1d88026709534927158e0cb3fac95afe"},
+    {file = "furo-2025.9.25.tar.gz", hash = "sha256:3eac05582768fdbbc2bdfa1cdbcdd5d33cfc8b4bd2051729ff4e026a1d7e0a98"},
 ]
 
 [package.dependencies]
@@ -1842,4 +1842,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11, <4"
-content-hash = "edc30d92e088fd5a3ab23dabd82575e2c56d5b0597727f94822b91ff18924aee"
+content-hash = "610d73100324be238deec2551e1a3cca06e1124a86e233508212a8873a920d61"
