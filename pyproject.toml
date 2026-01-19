@@ -49,7 +49,7 @@ furo = "^2025.12.19"
 sphinx = "^8.2.3"
 sphinx-autobuild = "^2025.8.25"
 sphinx-copybutton = "^0.5.2"
-sphinx-design = "^0.6.1"
+sphinx-design = "^0.7.0"
 sphinxcontrib-apidoc = "^0.6.0"
 sphinxcontrib-jquery = "^4.1"
 
