@@ -1035,14 +1035,14 @@ dev = ["pre-commit", "pytest-asyncio", "tox"]
 
 [[package]]
 name = "pytest-subprocess"
-version = "1.5.4"
+version = "1.6.0"
 description = "A plugin to fake subprocess for pytest"
 optional = false
 python-versions = ">=3.6"
 groups = ["test"]
 files = [
-    {file = "pytest_subprocess-1.5.4-py3-none-any.whl", hash = "sha256:8cf7c1245433afcda31b5bdf47bc386d573cee4787a6edafdd35cf04535e6bf6"},
-    {file = "pytest_subprocess-1.5.4.tar.gz", hash = "sha256:889e6618e3b2f8425deec15d0e9c2d846aa22ba352ab5764b633b3ab0d612ae8"},
+    {file = "pytest_subprocess-1.6.0-py3-none-any.whl", hash = "sha256:00037100f30429c8546adc81f357fddb5213eb036fe3bfb47b7b6befc965e5b2"},
+    {file = "pytest_subprocess-1.6.0.tar.gz", hash = "sha256:b2d746eb1b768a6f9087e5c7c91f87fb9d40c7fdc777550dc00397af428a0654"},
 ]
 
 [package.dependencies]
@@ -1928,4 +1928,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11, <4"
-content-hash = "66b7bc06a1d30b3931c1a27a891fa422541aae81f1aa5a199759a660bd6191b1"
+content-hash = "7c92077e6613b7f02068a5a162297890c53ef2a17dc444d4c7f4e29aa826df8a"
