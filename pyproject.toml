@@ -1,13 +1,13 @@
 [project]
 name = "f-lib"
 authors = [
-  {email = "kyle@finley.sh", name = "Kyle Finley"},
+  { email = "kyle@finley.sh", name = "Kyle Finley" },
 ]
 description = "Python library created by Kyle Finley, for Kyle Finley."
 dynamic = ["classifiers", "dependencies", "version"]
-license = {text = "Apache-2.0"}
+license = { text = "Apache-2.0" }
 maintainers = [
-  {email = "kyle@finley.sh", name = "Kyle Finley"},
+  { email = "kyle@finley.sh", name = "Kyle Finley" },
 ]
 requires-python = ">=3.11, <4"
 
@@ -29,16 +29,16 @@ classifiers = [
   "Typing :: Typed",
 ]
 packages = [
-  {include = "f_lib"},
+  { include = "f_lib" },
 ]
 requires-poetry = "^2.0"
 version = "0.0.0"
 
 [tool.poetry.dependencies]
-platformdirs = {version = "^4.1.0"}
-pydantic = {version = "^2.7.4"}
-pydantic-settings = {version = "^2.3.4"}
-rich = {version = "^14.0.0"}
+platformdirs = { version = "^4.1.0" }
+pydantic = { version = "^2.7.4" }
+pydantic-settings = { version = "^2.3.4" }
+rich = { version = "^14.0.0" }
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.6.2"
@@ -65,7 +65,7 @@ pytest-sugar = "^1.1.1"
 pytest-xdist = "^3.8.0"
 
 [tool.poetry.requires-plugins]
-poetry-dynamic-versioning = {extras = ["plugin"], version = ">=1.6.0,<2.0.0"}
+poetry-dynamic-versioning = { extras = ["plugin"], version = ">=1.6.0,<2.0.0" }
 
 [tool.coverage.report]
 exclude_lines = [
@@ -192,10 +192,10 @@ max-returns = 10
 [tool.tomlsort]
 all = true
 in_place = true
+overrides.project.first = ["name", "version"]
 sort_first = ["project", "tool", "tool.poetry"]
 spaces_before_inline_comment = 2
 trailing_comma_inline_array = true
-overrides.project.first = ["name", "version"]
 
 [build-system]
 build-backend = "poetry_dynamic_versioning.backend"
